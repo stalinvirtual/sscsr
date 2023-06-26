@@ -1,0 +1,100 @@
+[
+	{
+		"y": 64,
+		"label": "SI",
+		"indexLabel": "64%",
+		"indexLabelFontColor": "#fff",
+		"indexLabelFontWeight": "bold",
+		"indexLabelPlacement": "inside",
+		"indexLabelWrap": true,
+		"indexLabelFontSize": 11,
+		"indexLabelOrientation": "horizontal",
+		"indexLabelBackgroundColor": "#c0504e"
+
+
+	},
+	{
+		"y": 45,
+		"label": "CHSL",
+		"indexLabel": "45%",
+		"indexLabelFontColor": "#fff",
+		"indexLabelFontWeight": "bold",
+		"indexLabelPlacement": "inside",
+		"indexLabelWrap": true,
+		"indexLabelFontSize": 11,
+		"indexLabelOrientation": "horizontal",
+		"indexLabelBackgroundColor": "#c0504e"
+	},
+	{
+		"y": 54,
+		"label": "CGL",
+		"indexLabel": "54%",
+		"indexLabelFontColor": "#fff",
+		"indexLabelFontWeight": "bold",
+		"indexLabelPlacement": "inside",
+		"indexLabelWrap": true,
+		"indexLabelFontSize": 11,
+		"indexLabelOrientation": "horizontal",
+		"indexLabelBackgroundColor": "#c0504e"
+	},
+	{
+		"y": 43,
+		"label": "JE",
+		"indexLabel": "43%",
+		"indexLabelFontColor": "#fff",
+		"indexLabelFontWeight": "bold",
+		"indexLabelPlacement": "inside",
+		"indexLabelWrap": true,
+		"indexLabelFontSize": 11,
+		"indexLabelOrientation": "horizontal",
+		"indexLabelBackgroundColor": "#c0504e"
+	},
+	{
+		"y": 34,
+		"label": "STENO C&D",
+		"indexLabel": "34%",
+		"indexLabelFontColor": "#fff",
+		"indexLabelFontWeight": "bold",
+		"indexLabelPlacement": "inside",
+		"indexLabelWrap": true,
+		"indexLabelFontSize": 11,
+		"indexLabelOrientation": "horizontal",
+		"indexLabelBackgroundColor": "#c0504e"
+	},
+	{
+		"y": 28,
+		"label": "CAPF",
+		"indexLabel": "28%",
+		"indexLabelFontColor": "#fff",
+		"indexLabelFontWeight": "bold",
+		"indexLabelPlacement": "inside",
+		"indexLabelWrap": true,
+		"indexLabelFontSize": 11,
+		"indexLabelOrientation": "horizontal",
+		"indexLabelBackgroundColor": "#c0504e"
+	},
+	{
+		"y": 15,
+		"label": "CONSTABLE-GD",
+		"indexLabel": "15%",
+		"indexLabelFontColor": "#fff",
+		"indexLabelFontWeight": "bold",
+		"indexLabelPlacement": "inside",
+		"indexLabelWrap": true,
+		"indexLabelFontSize": 11,
+		"indexLabelOrientation": "horizontal",
+		"indexLabelBackgroundColor": "#c0504e"
+	},
+	{
+		"y": 10,
+		"label": "JHT",
+		"indexLabel": "10%",
+		"indexLabelFontColor": "#fff",
+		"indexLabelFontWeight": "bold",
+		"indexLabelPlacement": "inside",
+		"indexLabelWrap": true,
+		"indexLabelFontSize": 11,
+		"indexLabelOrientation": "horizontal",
+		"indexLabelBackgroundColor": "#c0504e"
+	}
+]

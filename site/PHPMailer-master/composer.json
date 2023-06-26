@@ -1,0 +1,17 @@
+{
+    "name": "ss2/php-mailer-master",
+    "description": "Php Mailer",
+    "autoload": {
+        "psr-4": {
+            "Ss2\\PhpMailerMaster\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Stalin"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.6"
+    }
+}

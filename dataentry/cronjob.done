@@ -1,0 +1,11 @@
+#!/bin/bash
+cd /home/apache2438/htdocs/citizen_new/sscsr/office/excel_uploads
+dir=/home/apache2438/htdocs/citizen_new/sscsr/office/excel_uploads
+for i in `ls $dir/*.[Xx][lL][sS][Xx]`
+do
+echo $i
+y=`basename -s .xlsx $i`'.txt'
+z=`basename -s .xlsx $i`'.txt'
+echo $z;
+/data/python3/bin/python3.8 /home/apache2438/htdocs/citizen_new/sscsr/office/excel_upload.py $i $y  `cat  $z`  
+done

@@ -1,0 +1,20 @@
+<?php
+use setasign\Fpdi\Fpdi;
+use setasign\Fpdi\PdfReader;
+
+require_once('fpdf/fpdf.php');
+require_once('autoload.php');
+
+$pdf = new Fpdi();
+
+$pageCount = $pdf->setSourceFile('Fantastic-Speaker.pdf');
+$pageId = $pdf->importPage(1, PdfReader\PageBoundaries::MEDIA_BOX);
+
+$pdf->addPage();
+$pdf->useImportedPage($pageId, 10, 10, 90);
+
+$pdf->addPage();
+$pdf->useImportedPage($pageId, 10, 10, 90);
+
+
+$pdf->Output('I', 'generated.pdf');

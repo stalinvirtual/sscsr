@@ -1,0 +1,10 @@
+{
+    "require": {
+        "picqer/php-barcode-generator": "^2.2",
+        "dompdf/dompdf": "^2.0",
+        "chillerlan/php-qrcode": "^4.3",
+        "ilovepdf/ilovepdf-php": "^1.2",
+        "setasign/fpdf": "^1.8",
+        "clegginabox/pdf-merger": "dev-master"
+    }
+}

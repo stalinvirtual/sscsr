@@ -1,0 +1,12 @@
+.card-title {
+  float: right;
+  padding-top: 26px;
+}
+
+.error{
+  color: red !important;
+}
+
+.iconWidth{
+    width: 40px;
+}
