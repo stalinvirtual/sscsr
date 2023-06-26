@@ -6,8 +6,10 @@ $base_url = "http://10.163.2.160";
 
 
 $GLOBALS['local_path'] =  $base_url ."/projects/sscsr/dataentry/ftp/";
+$GLOBALS['local_path'] =  $base_url ."/sscsr/dataentry/ftp/";
 
 $GLOBALS['pdf_header_image_server_path'] = $base_url ."/projects/sscsr/site/exam_assets/";
+$GLOBALS['pdf_header_image_server_path'] = $base_url ."/sscsr/site/exam_assets/";
 
 
 
@@ -20,6 +22,7 @@ $GLOBALS['local_instructions_path'] = "C:\\xampp\htdocs\\projects\\sscsr\\dataen
 //$GLOBALS['local_instructions_path'] = "C:\\xampp\htdocs\\rd\\\security_audit\\dataentry\\important_instructions\\";
 
 $local_bulk_mail = "http://localhost/projects//dataentry/bulkemail";
+$local_bulk_mail = "http://localhost/dataentry/bulkemail";
 /**
  * @author Stalin
  * @value :  Subject
