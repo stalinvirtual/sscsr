@@ -668,7 +668,7 @@ class Helpers
 
 					}
 					else{
-						$errorMsg = "Wrong Register Number  or Date of Birth or Exam";
+						$errorMsg = "Your credentials are NOT correct. Please try with correct credentials";
 					}
 
 					
