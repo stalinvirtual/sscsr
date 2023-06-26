@@ -27,12 +27,12 @@ if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && ( $_SERVER['HTTP_X_REQUESTED_W
 
        
 
-            $query = <<<TEXT
-            select table_name, count(*) as column_count from information_schema."columns" where table_schema = 'public' 
-            and table_name='cgle_2019_dv' GROUP by table_name order by column_count desc;
+        $query = <<<TEXT
+        select table_name, count(*) as column_count from information_schema."columns" where table_schema = 'public' 
+        and table_name= :tbl GROUP by table_name order by column_count desc;
 TEXT;
-        $sth = $pdo->prepare($query);
-        $sth->execute();
+    $sth = $pdo->prepare($query);
+    $sth->execute([":tbl"=>$tbl]);
         $columnCountResult = $sth->fetch();
         $columnCount =  $columnCountResult->column_count;
         $host = "localhost";

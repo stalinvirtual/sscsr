@@ -23,6 +23,17 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 // JOIN cgle_2019_tier ted ON kd.reg_no = ted.reg_no and trim(kd.exam_code) = trim(ted.exam_code) 
 	// JOIN tier_master t ON ted.tier_id = cast(t.tier_id as char(255)) 
 // where ted.tier_id = '1' and ted.ac_printed = '1' 
+
+// echo $_POST['examname'];
+// echo $_POST['exam_year'];
+// echo $table_type;
+// die;
+
+
+$output = isExists($_POST['examname'],$_POST['exam_year'],	$table_type);
+if($output->count == 1){
+	
+
 	if ($download_options == '1') {
 		$sql = "SELECT kd.reg_no,kd.dob,kd.cand_name,ted.roll_no,ted.updated_on,ted.ipaddress FROM $kyas_table kd 
 JOIN $table_name ted ON 
@@ -90,10 +101,23 @@ WHERE table_name = :other_table and column_name  in('roll_no')";
 	} else {
 		echo '<p style="text-align:center; color:red;"><b>No records found in "' . $table_name . '" </b></p>';
 	}
+}else{
+	echo '<p style="text-align:center; color:red;"><b>"' . $table_name . '" does not exist.</b></p>';
+	$reloadTime = 3000; // Reload time in milliseconds (5 seconds)
+
+		echo '<script type="text/javascript">';
+		echo 'setTimeout(function(){location.reload(); }, '.$reloadTime.');
+		';
+		
+		echo '</script>';
+}
 } else {
+	
 	header("Location: index.php");
 	exit();
 }
+
+
 ?>
 <script type="text/javascript" language="javascript">
 	$(document).ready(function () {
