@@ -2,7 +2,6 @@
 Staff Selection Commision
 
 
-
 # DB Credentials
 
 DB Name : sscsr
@@ -20,3 +19,5 @@ C:\xampp\htdocs\sscsr\site\app\system\Config.php
 C:\xampp\htdocs\sscsr\dataentry\config\db.php
 
 C:\xampp\htdocs\sscsr\dataentry\config\db1.php
+
+updated by naveena
