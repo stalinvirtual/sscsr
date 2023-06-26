@@ -497,7 +497,10 @@ if (!isset($_SERVER['HTTP_REFERER']) && empty($_SERVER['HTTP_REFERER']) || !isse
 	});
 </script>
 <script>
+	
 	$("#creating_master_tables input[type=radio]").change(function () {
+	var formdata = new FormData(document.getElementById("creating_master_tables"));
+		
 		//$('#admit_submit_button').hide();
 		var examname = $('#examname option:selected').val();
 		var table_format = $('#selectedTableFormat option:selected').val();
@@ -511,7 +514,7 @@ if (!isset($_SERVER['HTTP_REFERER']) && empty($_SERVER['HTTP_REFERER']) || !isse
 			var tablefor = 'Tier Based Exam Details';
 		}
 		if (examname != '' && table_format != '' && exam_year != '') {
-			var formdata = new FormData(document.getElementById("creating_master_tables"));
+		
 			//loader start
 			// $('#overlay').fadeIn();
 			$('.loader-mask').fadeIn();
@@ -524,11 +527,13 @@ if (!isset($_SERVER['HTTP_REFERER']) && empty($_SERVER['HTTP_REFERER']) || !isse
 			})
 				.done(function (data) {
 					//loader stop
-					// $('#overlay').fadeOut();
-					$('.loader-mask').fadeOut();
+				
+				$('.loader-mask').fadeOut();
+					
 					$('#messageTemplate').html(data);
 					console.log(download_options);
 				})
 		}
+
 	});
 </script>
