@@ -2,13 +2,11 @@
 
 //  $base_url =  "http://" . $_SERVER['SERVER_NAME'];
 
-$base_url = "http://10.163.2.160";
+$base_url = "http://10.163.2.181:81";
 
 
-$GLOBALS['local_path'] =  $base_url ."/projects/sscsr/dataentry/ftp/";
 $GLOBALS['local_path'] =  $base_url ."/sscsr/dataentry/ftp/";
 
-$GLOBALS['pdf_header_image_server_path'] = $base_url ."/projects/sscsr/site/exam_assets/";
 $GLOBALS['pdf_header_image_server_path'] = $base_url ."/sscsr/site/exam_assets/";
 
 
@@ -18,11 +16,10 @@ $GLOBALS['pdf_header_image_server_path'] = $base_url ."/sscsr/site/exam_assets/"
 
 //$GLOBALS['local_path'] =  "C:\\xampp\htdocs\\rd\\\security_audit\\dataentry\\ftp//";
 
-$GLOBALS['local_instructions_path'] = "C:\\xampp\htdocs\\projects\\sscsr\\dataentry\\important_instructions\\";
+$GLOBALS['local_instructions_path'] = "D:\\xampp\htdocs\\sscsr\\dataentry\\important_instructions\\";
 //$GLOBALS['local_instructions_path'] = "C:\\xampp\htdocs\\rd\\\security_audit\\dataentry\\important_instructions\\";
 
-$local_bulk_mail = "http://localhost/projects//dataentry/bulkemail";
-$local_bulk_mail = "http://localhost/dataentry/bulkemail";
+$local_bulk_mail = "http://localhost/sscsr/dataentry/bulkemail";
 /**
  * @author Stalin
  * @value :  Subject

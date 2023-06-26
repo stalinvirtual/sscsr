@@ -120,7 +120,6 @@ class PdfHelperPETExam extends Dompdf
                         else{
                            $base_url = "http://10.163.2.160";
                            $local_path =  $base_url ."/projects/sscsr/site/";
-                           $local_path =  $base_url ."/sscsr/site/";
                            $photo_path =  $local_path."exam_assets/photo_not_exists.png";
                                  
                            }
@@ -153,12 +152,7 @@ class PdfHelperPETExam extends Dompdf
                     if( $retcode ==200) {
                        $sign_path = $sign_path;
                     }
-                    else{
-                     $base_url = "http://10.163.2.181:81";
-                     $local_path =  $base_url ."/sscsr/site/";
-                     $photo_path =  $local_path."exam_assets/sign_not_exists.png";
-                           
-                    }
+                    else{}
                     break;
                 case "16":
                     //candidate address

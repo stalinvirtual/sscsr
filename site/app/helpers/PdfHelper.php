@@ -176,7 +176,6 @@ class PdfHelper extends Dompdf
                            else{
                               $base_url = "http://10.163.2.160";
                               $local_path =  $base_url ."/projects/sscsr/site/";
-                              $local_path =  $base_url ."/sscsr/site/";
                               $photo_path =  $local_path."exam_assets/photo_not_exists.png";
                                     
                               }
@@ -223,7 +222,6 @@ class PdfHelper extends Dompdf
                               else{
                                  $base_url = "http://10.163.2.160";
                                  $local_path =  $base_url ."/rd/security_audit/site/";
-                                 $local_path =  $base_url ."/sscsr/site/";
                                  $sign_path =  $local_path."exam_assets/sign_not_exits.png";
                                  
                                  }
