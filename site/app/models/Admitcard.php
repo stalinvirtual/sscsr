@@ -333,7 +333,116 @@ class Admitcard extends DB
 
     }
 
-  
+    public function getAdmitcardforTierPreview($data_array)
+    {
+
+        $originalDate = $data_array['dob'];
+        $newDate = $this->getDobFormat($originalDate);
+        $table_name = $data_array['table_name'];
+        $tier_id = $data_array['tier_id'];
+        $register_number = $data_array['register_number'];
+
+        $value = explode("_", $table_name);
+        $value[2] = "kyas";
+        $kyas_tbl_name = implode("_", $value);
+        $exam_code = $value[0] . $value[1];
+
+
+
+        $tier_id = $this->cleanData($tier_id);
+        $exam_code = $this->cleanData($exam_code);
+
+        $instructions_sql  = $this->select("count(*)")
+            ->from("admitcard_important_instructions")
+            ->where(['exam_tier' => $tier_id, 'exam_code' => $exam_code])
+            ->get_one();
+
+      
+
+
+
+
+
+        $kyas_tbl_name = $this->cleanData($kyas_tbl_name);
+
+        $table_name = $this->cleanData($table_name);
+
+        $newDate = $this->cleanData($newDate);
+
+        $register_number = $this->cleanData($register_number);
+        $tier_id = $this->cleanData($tier_id);
+
+        
+
+        $instructions_count = $instructions_sql;
+        if ($instructions_count->count == 0) {
+            if($data_array['roll_no'] != "" && $data_array['post_preference'] ==""){
+
+                $whereArray = array(
+                    'kd.dob' => $newDate, 
+                    'kd.reg_no' => $register_number,
+                     'ted.tier_id' => $tier_id,
+                     'ted.roll_no' => $data_array['roll_no']
+                );
+
+            }
+            elseif($data_array['roll_no'] != "" && $data_array['post_preference'] !=""){
+
+                $whereArray = array(
+                    'kd.dob' => $newDate, 
+                    'kd.reg_no' => $register_number,
+                     'ted.tier_id' => $tier_id,
+                     'ted.roll_no' => $data_array['roll_no'],
+                     'ted.post_preference' => $data_array['post_preference']
+                );
+
+            }
+            else{
+
+                
+
+                $whereArray = array(
+                    'kd.dob'      => $newDate, 
+                    'kd.reg_no'   => $register_number,
+                    'ted.tier_id' => $tier_id,
+                    
+                );
+
+            }
+
+           
+
+
+
+            $sql  = $this->select("kd.*,ted.*,t.tier_name, t.tier_id ,
+            CONCAT(kd.present_address,', ',kd.present_district,', ',kd.present_state,', ',substring(kd.present_pincode,1,6)) as candidate_address")
+                ->from("$kyas_tbl_name kd ")
+                ->join("$table_name ted ", "kd.reg_no = ted.reg_no and trim(kd.exam_code) = trim(ted.exam_code) ", "JOIN")
+                ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
+                ->where($whereArray)
+                ->get_one();
+              
+        } else {
+
+            $sql  = $this->select("kd.*,ted.*,t.tier_name, t.tier_id, ted.*,t.tier_name, t.tier_id , ii.pdf_attachment,
+            CONCAT(kd.present_address,', ',kd.present_district,', ',kd.present_state,', ',substring(kd.present_pincode,1,6)) as candidate_address")
+                ->from("$kyas_tbl_name kd ")
+                ->join("$table_name ted ", "kd.reg_no = ted.reg_no and trim(kd.exam_code) = trim(ted.exam_code) ", "JOIN")
+
+                ->join("admitcard_important_instructions ii ", "trim(ted.exam_code) = trim(ii.exam_code) and ted.tier_id = ii.exam_tier ", "JOIN")
+
+                ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
+                ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->get_one();
+               
+        }
+        $getcandidaterecord = $sql;
+
+        return $getcandidaterecord;
+    }
+
+
+
 
     public function getAdmitcardforTier($data_array)
     {
