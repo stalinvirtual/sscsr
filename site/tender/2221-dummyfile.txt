@@ -1,0 +1,2 @@
+<br />
+<b>Notice</b>:  Undefined index: attachment in <b>G:\xampp\htdocs\rd\sscsr\site\admin\templates\edit-tender.php</b> on line <b>132</b><br />
