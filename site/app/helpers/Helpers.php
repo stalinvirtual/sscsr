@@ -916,13 +916,13 @@ class Helpers
 					$data =  $modelClass->getQueryListTIER();
 					// $this->printr($data);
 
-					if ($admitcard->getAdmitcardforTier($data_array)) {
+					if ($admitcard->getAdmitcardforTierPreview($data_array)) {
 						// $admitcardresults = $admitcard->getAdmitcardforDV($data_array);
 						// $array = json_decode(json_encode($admitcardresults), true);
 						// $exam_name = $admitcard->getExamName($exam_value);
 						// $count = count((array)$admitcardresults);
 						// $arrays = [];
-						$admitcardresults = $admitcard->getAdmitcardforTier($data_array);
+						$admitcardresults = $admitcard->getAdmitcardforTierPreview($data_array);
 
 
 						//echo '<pre>';
