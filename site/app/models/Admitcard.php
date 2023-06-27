@@ -333,6 +333,7 @@ class Admitcard extends DB
 
     }
 
+  
 
     public function getAdmitcardforTier($data_array)
     {
@@ -439,10 +440,7 @@ class Admitcard extends DB
                 ->get_one();
                
         }
-       // echo $this->last_query;
       
-    //     echo $sql;
-        // exit;
 
         $getcandidaterecord = $sql;
 

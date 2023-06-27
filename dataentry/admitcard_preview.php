@@ -24,7 +24,7 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 						<div class="row">
 							<div class="col-md-12 form-group videoWrapper">
 								<iframe id="forPostyouradd" height='200%' width="100%"
-									data-src="http://10.163.2.160/projects/sscsr/site/IndexController/admitcardpreview"
+									data-src="http://10.163.2.160/sscsr/site/IndexController/admitcardpreview"
 									src="about:blank" class="responsive-iframe" allowfullscreen
 									style="background:#ffffff"></iframe>
 							</div>

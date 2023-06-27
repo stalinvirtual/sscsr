@@ -21,3 +21,5 @@ C:\xampp\htdocs\sscsr\dataentry\config\db.php
 C:\xampp\htdocs\sscsr\dataentry\config\db1.php
 
 updated by naveena
+
+Change Path Name in admitcard_preview.php
