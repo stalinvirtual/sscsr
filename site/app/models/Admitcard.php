@@ -120,8 +120,6 @@ class Admitcard extends DB
                 ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
                 ->get_one();
         }
-        echo $this->last_query;
-        exit;
         $getcandidaterecord = $sql;
         return $getcandidaterecord;
     }
@@ -313,6 +311,7 @@ class Admitcard extends DB
     // Get Tier Admit Card
 
 
+
     public function getAdmitcardforTierCount($data_array){
         $originalDate    = $data_array['dob'];
         $newDate         = $this->getDobFormat($originalDate);
@@ -451,6 +450,8 @@ class Admitcard extends DB
 
 
 
+
+
     public function getAdmitcardforTier($data_array)
     {
 
@@ -490,8 +491,6 @@ class Admitcard extends DB
         $register_number = $this->cleanData($register_number);
         $tier_id = $this->cleanData($tier_id);
 
-        
-
         $instructions_count = $instructions_sql;
         if ($instructions_count->count == 0) {
             if($data_array['roll_no'] != "" && $data_array['post_preference'] ==""){
@@ -517,6 +516,7 @@ class Admitcard extends DB
             }
             else{
 
+<<<<<<< HEAD
                 if($tier_id == "1"){
                     $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
                     LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
@@ -530,11 +530,12 @@ class Admitcard extends DB
                 $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
                 LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
 
+=======
+>>>>>>> 2dfe3e6273ae5fe87d5c7961466627e0de911860
                 $whereArray = array(
-                    'kd.dob'      => $newDate, 
-                    'kd.reg_no'   => $register_number,
-                    'ted.tier_id' => $tier_id,
-                     $str         => date('Y-m-d')
+                    'kd.dob' => $newDate, 
+                    'kd.reg_no' => $register_number,
+                     'ted.tier_id' => $tier_id
                     
                 );
 
@@ -566,9 +567,15 @@ class Admitcard extends DB
                 ->get_one();
                
         }
+<<<<<<< HEAD
          // echo $this->last_query;
              //  exit;
       
+=======
+       //echo $this->last_query;
+    //     echo $sql;
+       //  exit;
+>>>>>>> 2dfe3e6273ae5fe87d5c7961466627e0de911860
 
         $getcandidaterecord = $sql;
 
