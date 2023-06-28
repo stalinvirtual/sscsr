@@ -516,7 +516,6 @@ class Admitcard extends DB
             }
             else{
 
-<<<<<<< HEAD
                 if($tier_id == "1"){
                     $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
                     LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
@@ -530,8 +529,6 @@ class Admitcard extends DB
                 $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
                 LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
 
-=======
->>>>>>> 2dfe3e6273ae5fe87d5c7961466627e0de911860
                 $whereArray = array(
                     'kd.dob' => $newDate, 
                     'kd.reg_no' => $register_number,
@@ -567,15 +564,9 @@ class Admitcard extends DB
                 ->get_one();
                
         }
-<<<<<<< HEAD
-         // echo $this->last_query;
+             // echo $this->last_query;
              //  exit;
       
-=======
-       //echo $this->last_query;
-    //     echo $sql;
-       //  exit;
->>>>>>> 2dfe3e6273ae5fe87d5c7961466627e0de911860
 
         $getcandidaterecord = $sql;
 

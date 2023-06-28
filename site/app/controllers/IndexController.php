@@ -1105,40 +1105,7 @@ class IndexController extends FrontEndController
   * @author Stalin
   * @method : Know Your Venue Details
   */
-public function getPET(){
-	   $modelClass = new Admitcard();
-	   $data =  $modelClass->getQueryListPET();
-	  	PdfHelperPETExam::genereateAndPETDownloadAdminCard($data);     
-	  
-	}
-	public function getDV(){
-	   $modelClass = new Admitcard();
-	   $colmasterdetails =  $modelClass->getQueryListDV();
-	   $st =  json_decode(json_encode($colmasterdetails), true);
-	   $data2 = $modelClass->getQueryListDVResult();
-	   $array = json_decode(json_encode($data2), true);
-	  
-		$arrays = [];
-		 foreach($colmasterdetails as $val){
-			 
-			 foreach(array_keys($array) as $res ){
-				 if($res == $val->col_name){
-					$col_value =  $array[$res];
-				 }
-			 }
-			 	 $arrays[] = array(
-				"col_name"=>$val->col_name,
-				"col_description"=>$val->col_description,
-				"is_dv"=>$val->is_dv,
-				"is_dv_order"=>$val->is_dv_order,
-				"col_value"=>$col_value
-				);
-		} 
-		
-		$datavalue = (object)$arrays;
 
-	  	PdfHelperDVExam::genereateAndDVDownloadAdminCard($datavalue); 
-	}
 
 	public function emailIntegration(){
 		
