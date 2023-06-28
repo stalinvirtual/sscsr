@@ -304,7 +304,6 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 				contentType: false,
 				processData: false,
 				success: function (response) {
-					debugger;
 					if (response == 1) {
 						$('#table_exits').removeClass("errormsg");
 						$('#table_exits').addClass("successmsg");

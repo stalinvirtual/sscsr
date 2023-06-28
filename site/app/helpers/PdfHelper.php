@@ -137,6 +137,46 @@ class PdfHelper extends Dompdf
                $key10 = $value["col_description"];
                $value10 = valueAdded($value["col_value"]);
                break;
+               case "62":
+                  //repotime1
+                  $key62 = $value["col_description"];
+                  $value62 = valueAdded($value["col_value"]);
+                  break;
+               case "63":
+                  //repotime2
+                  $key63 = $value["col_description"];
+                  $value63 = valueAdded($value["col_value"]);
+                  break;
+               case "64":
+                  //gateclose1
+                  $key64 = $value["col_description"];
+                  $value64 = valueAdded($value["col_value"]);
+                  break;
+               case "65":
+                  //gateclose2
+                  $key65   = $value["col_description"];
+                  $value65 = valueAdded($value["col_value"]);
+                  break;
+               case "66":
+                  //repotime_admit1
+                  $key66   = $value["col_description"];
+                  $value66 = valueAdded($value["col_value"]);
+                  break;
+               case "67":
+                  //repotime_admit2
+                  $key67   = $value["col_description"];
+                  $value67 = valueAdded($value["col_value"]);
+                  break;
+               case "68":
+               //gateclose_admit1
+                  $key68   = $value["col_description"];
+                  $value68 = valueAdded($value["col_value"]);
+                  break;
+               case "69":
+                  //gateclose_admit2
+                  $key69   = $value["col_description"];
+                  $value69 = valueAdded($value["col_value"]);
+                  break;
                case "11":
                //gateclose
                $key11 = $value["col_description"];
@@ -440,6 +480,20 @@ class PdfHelper extends Dompdf
                //echo "Your favorite color is neither red, blue, nor green!";
             }
          }
+
+         $reporting_time_label          = "Reporting Time";
+         $venue_detail_gate_close_label = "Venue Entry/Gate Closing Time";
+
+      if($tier_id == 1){
+
+         $reporting_time                = $value66;
+         $venue_detail_gate_close       = $value68;
+            
+      }
+      else{
+         $reporting_time                = "Shift 1 : ".$value66.","."<br><div style='margin-left:115px'>Shift 2 : ".$value67.".</div>";
+         $venue_detail_gate_close       = "Shift 1 : ".$value68.","."<br><div style='margin-left:215px'>Shift 2 : ".$value69.".</div>";
+      }
          $headerImg = $GLOBALS['pdf_header_image_server_path'] ."header.png" ;
         
          $paper1 = $value23;
@@ -601,8 +655,8 @@ class PdfHelper extends Dompdf
 
    <table  style="width:100%" class= "tableClass">
       <tr style="height:200px !important">
-         <td  style="text-align: left" width="50%"><b>'.$key10.' : </b> '. $value10 .' </td>
-         <td  style="text-align: left"><b>'.$key11.' : </b> '. $value11 .' </td>
+         <td  style="text-align: left" width="50%"><b>'.$reporting_time_label.' : </b> '. $reporting_time .' </td>
+         <td  style="text-align: left"><b>'.$venue_detail_gate_close_label.' : </b> '. $venue_detail_gate_close .' </td>
       </tr>
    </table>
    <!-- Reporting Time and Entry Closing time -->

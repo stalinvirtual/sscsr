@@ -166,9 +166,11 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
         $result = $pdo->prepare($query);
         $result->execute([$id]);
         $resultCount = $result->fetchColumn();
+       
         if ($resultCount > 0) {
             try {
-                $sql = "UPDATE column_master SET status='1' WHERE col_id=$id";
+                $sql = "UPDATE column_master SET status='1' WHERE col_id=?";
+                
 
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([$id]);

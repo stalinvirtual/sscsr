@@ -275,7 +275,6 @@ echo $this->get_header(); ?>
                     dataType: 'json',
                     success: function (response) {
                         if (response.message == 1) {
-                            debugger;
                             //alert("Welcome")
                             window.location.href = redirecturl;
                         }

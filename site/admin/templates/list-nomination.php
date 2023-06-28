@@ -549,7 +549,6 @@
         //Nomination Month onchange
 
         $("#nomination_month").on('change', function(e) {
-           debugger;
             let month = $(this).val();
             let year = $("#nomination_year").val();
             if (month == 'All') {

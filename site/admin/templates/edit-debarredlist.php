@@ -313,7 +313,6 @@ $("#effect_from_date").datepicker({
                     dataType: 'json',
                     success: function(response) {
                         if (response.message == 1) {
-                            debugger;
                             //alert("Welcome")
                             window.location.href = redirecturl;
 
@@ -326,7 +325,7 @@ $("#effect_from_date").datepicker({
         });
 
         $('.pdfclassupload').on('change', function() {
-            debugger;
+          
             myfile = $(this).val();
             var ext = myfile.split('.').pop();
             if (ext == "pdf") {

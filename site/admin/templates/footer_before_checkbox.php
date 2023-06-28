@@ -329,7 +329,7 @@ $(function () {
              'click',
              function() {
 
-                debugger;
+            
 				 
 				 
                  var nomination_id =  $(this).closest('td').find('#nomination_id').val();

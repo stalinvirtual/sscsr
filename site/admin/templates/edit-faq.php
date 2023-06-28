@@ -192,8 +192,6 @@ $(document).ready(function() {
                     dataType: 'json',
                     success: function(response) {
                         if (response.message == 1) {
-                            debugger;
-                            //alert("Welcome")
                             window.location.href = redirecturl;
 
                         }

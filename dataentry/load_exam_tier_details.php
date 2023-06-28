@@ -450,7 +450,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 						confirmButtonText: 'submit',
 						showLoaderOnConfirm: true,
 						preConfirm: (login) => {
-							debugger;
+							
 
 							var today = new Date();
 							var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -528,7 +528,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 		//Start , Stop Button
 		$('#exam_data').on('click', '.stop_status_class', function (event) {
 
-			debugger;
+			
 
 
 

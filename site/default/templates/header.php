@@ -97,7 +97,11 @@ $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(16));
 	<script src="assets/datatable/js/md5.min.js"></script>
 	
 <style>
-
+ *{
+         font-family: "source_sans_proregular", Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;    
+		 font-size: 17;
+       
+      }
 </style>
 	
 </head>

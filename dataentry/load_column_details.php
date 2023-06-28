@@ -295,6 +295,8 @@ echo $output;
 					dataType: "json",
 				}).done(function (data) {
 
+					
+
 
 					swal.fire({
 						showCloseButton: true,

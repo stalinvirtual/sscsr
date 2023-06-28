@@ -422,7 +422,6 @@ $("#effect_to_date").datepicker({
                     dataType: 'json',
                     success: function(response) {
                         if (response.message == 1) {
-                            debugger;
                             //alert("Welcome")
                             window.location.href = redirecturl;
 

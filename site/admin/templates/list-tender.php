@@ -543,7 +543,6 @@
         //Nomination Month onchange
 
         $("#tender_month").on('change', function(e) {
-           debugger;
             let month = $(this).val();
             let year = $("#tender_year").val();
             if (month == 'All') {

@@ -183,12 +183,17 @@ class Admitcard extends DB
         }
         else{
 
-            $whereArray = array(
-                'kd.dob' => $newDate, 
-                'kd.reg_no' => $register_number,
-                 'ted.tier_id' => $tier_id
-                
-            );
+            $str = "ted.dv_date::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+        $whereArray = array(
+            'kd.dob'      => $newDate, 
+            'kd.reg_no'   => $register_number,
+            'ted.tier_id' => $tier_id,
+             $str         => date('Y-m-d')
+            
+        );
+
+           
 
         }
         if ($instructions_count->count == 0) {
@@ -437,6 +442,8 @@ class Admitcard extends DB
                
         }
         $getcandidaterecord = $sql;
+        //  echo $this->last_query;
+        //         exit;
 
         return $getcandidaterecord;
     }
@@ -510,6 +517,16 @@ class Admitcard extends DB
             }
             else{
 
+                if($tier_id == "1"){
+                    $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                    LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+                }
+                else{
+                    $str = "LEAST(ted.date1::date,ted.date2::date,ted.date3::date,ted.date4::date) - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm 
+                    LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+
+                }
+
                 $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
                 LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
 
@@ -549,6 +566,8 @@ class Admitcard extends DB
                 ->get_one();
                
         }
+         // echo $this->last_query;
+             //  exit;
       
 
         $getcandidaterecord = $sql;
@@ -590,6 +609,16 @@ class Admitcard extends DB
 
         $register_number = $this->cleanData($register_number);
         $tier_id = $this->cleanData($tier_id);
+        
+        $str = "ted.skill_test_date::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+        $whereArray = array(
+            'kd.dob'      => $newDate, 
+            'kd.reg_no'   => $register_number,
+            'ted.tier_id' => $tier_id,
+             $str         => date('Y-m-d')
+            
+        );
 
         if ($instructions_count->count == 0) {
 
@@ -599,7 +628,7 @@ class Admitcard extends DB
                 ->join("$table_name ted ", "kd.reg_no = ted.reg_no and trim(kd.exam_code) = trim(ted.exam_code) ", "JOIN")
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
-                ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->where($whereArray)
                 ->get_one();
         } else {
 
@@ -612,11 +641,11 @@ class Admitcard extends DB
                  and ted.tier_id = ii.exam_tier ", "JOIN")
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
-                ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->where($whereArray)
                 ->get_one();
         }
 
-      
+       
 
 
         $getcandidaterecord = $sql;

@@ -58,7 +58,7 @@ function archivesButton(
     rowidalue
 ) {
 
-    debugger;
+    
 
     var rowid = rowidalue;
     var baseurl = baseurlpath;
@@ -133,7 +133,7 @@ function confirmationdelete(ev) {
         var urlToRedirect = ev.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
         console.log(urlToRedirect); // verify if this is the right URL
 
-        debugger;
+      
         swal({
           title: "Are you sure to want to Archive?",
          
@@ -305,7 +305,6 @@ function archiveTemp(
 
         console.log( formEl.find("."+ year).val());
         formEl.find("."+ month).on('change', function(e) {
-            debugger;
             let month = $(this).val();
             let yearvalue = formEl.find("."+ year).val();
             if (month == 'All') {
@@ -313,7 +312,6 @@ function archiveTemp(
                 formEl.find("#"+ from_and_to_date_container).hide();
 
             } else {
-                debugger;
                 formEl.find("#"+ from_and_to_date_container).show();
                 monthvalue = month;
                 formEl.find("."+ effect_from_date).datepicker("setDate", `01-${monthvalue}-${yearvalue}`);

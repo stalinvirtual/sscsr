@@ -22,7 +22,7 @@ $GLOBALS['local_path']
 change current file path
 
 <iframe id="forPostyouradd" height='200%' width="100%"
-    data-src="http://localhost/projects/sscsr/site/IndexController/admitcardpreview" src="about:blank"
+    data-src="http://localhost/sscsr/site/IndexController/admitcardpreview" src="about:blank"
     class="responsive-iframe" allowfullscreen style="background:#ffffff"></iframe>
 
 

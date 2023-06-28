@@ -662,10 +662,8 @@ class Helpers
 							$datavalue = (object)$arrays;
 							return ['admitcardresults' => $datavalue, 'year_of_exam' => $exam_year, 'count' => $count, "exam_name" => $exam_name, "pdf_name" => @$pdf_name, "exam_type" => $exam_type, "candidate_address" => $candidate_address, "tier_id" => $tier_id, "tableName" => $tableName, "regNo" => $register_number];
 						} else {
-							$errorMsg = "You can download your e-Admission certificate only ____before your date of Examination";
+							$errorMsg = "You can download your e-Admission certificate only 4 days before your date of Examination";
 						}
-
-
 					}
 					else{
 						$errorMsg = "Your credentials are NOT correct. Please try with correct credentials";
@@ -681,44 +679,49 @@ class Helpers
 
 					$modelClass = new Admitcard();
 					$data =  $modelClass->getQueryListSKILLTEST();
-					if ($admitcard->getAdmitcardforSkillTest($data_array)) {
-						$admitcardresults = $admitcard->getAdmitcardforSkillTest($data_array);
+					if($admitcard->getAdmitcardforTierCount($data_array)){
+						if ($admitcard->getAdmitcardforSkillTest($data_array)) {
+							$admitcardresults = $admitcard->getAdmitcardforSkillTest($data_array);
 
-						//$this->printr($admitcardresults);
+							//$this->printr($admitcardresults);
 
-						$array = json_decode(json_encode($admitcardresults), true);
-						$exam_name = $admitcard->getExamName($exam_value);
-						@$count = count((array)$admitcardresults);
-						$arrays = [];
-						foreach ($data as $val) {
+							$array = json_decode(json_encode($admitcardresults), true);
+							$exam_name = $admitcard->getExamName($exam_value);
+							@$count = count((array)$admitcardresults);
+							$arrays = [];
+							foreach ($data as $val) {
 
-							foreach (array_keys($array) as $res) {
-								if ($res == $val->col_name) {
-									$col_value =  $array[$res];
-								}
+								foreach (array_keys($array) as $res) {
+									if ($res == $val->col_name) {
+										$col_value =  $array[$res];
+									}
 
-								if ($res == 'pdf_attachment') {
-									$pdf_name =  $array[$res];
+									if ($res == 'pdf_attachment') {
+										$pdf_name =  $array[$res];
+									}
+									if ($res == 'candidate_address') {
+										$candidate_address =  $array[$res];
+									}
+									if ($res == 'exam_code') {
+										$exam_year =  substr($array[$res], -4);
+									}
 								}
-								if ($res == 'candidate_address') {
-									$candidate_address =  $array[$res];
-								}
-								if ($res == 'exam_code') {
-									$exam_year =  substr($array[$res], -4);
-								}
+								$arrays[] = array(
+									"col_name" => $val->col_name,
+									"col_description" => $val->col_description,
+									"is_skill" => $val->is_skill,
+									"is_skill_order" => $val->is_skill_order,
+									"col_value" => $col_value
+								);
 							}
-							$arrays[] = array(
-								"col_name" => $val->col_name,
-								"col_description" => $val->col_description,
-								"is_skill" => $val->is_skill,
-								"is_skill_order" => $val->is_skill_order,
-								"col_value" => $col_value
-							);
+							$datavalue = (object)$arrays;
+							return ['admitcardresults' => $datavalue, 'count' => $count, "exam_name" => $exam_name, "pdf_name" => @$pdf_name, 'year_of_exam' => $exam_year,"exam_type" => $exam_type, "candidate_address" => $candidate_address, "tier_id" => $tier_id, "tableName" => $tableName, "regNo" => $register_number];
+						} else {
+							$errorMsg = "You can download your e-Admission certificate only 4 days before your date of Examination";
 						}
-						$datavalue = (object)$arrays;
-						return ['admitcardresults' => $datavalue, 'count' => $count, "exam_name" => $exam_name, "pdf_name" => @$pdf_name, 'year_of_exam' => $exam_year,"exam_type" => $exam_type, "candidate_address" => $candidate_address, "tier_id" => $tier_id, "tableName" => $tableName, "regNo" => $register_number];
-					} else {
-						$errorMsg = "Wrong Register Number  or Date of Birth or Exam";
+					}
+					else{
+						$errorMsg = "Your credentials are NOT correct. Please try with correct credentials";
 					}
 					break;
 				case "pet":
@@ -764,7 +767,7 @@ class Helpers
 
 						return ['admitcardresults' => $datavalue, 'year_of_exam' => $exam_year, 'count' => $count, "exam_name" => $exam_name, "pdf_name" => @$pdf_name, "exam_type" => $exam_type, "candidate_address" => $candidate_address, "tier_id" => $tier_id, "tableName" => $tableName, "regNo" => $register_number];
 					} else {
-						$errorMsg = "Wrong Register Number  or Date of Birth or Exam";
+						$errorMsg = "Your credentials are NOT correct. Please try with correct credentials";
 					}
 
 					// If exam Type is PET End
@@ -814,7 +817,7 @@ class Helpers
 
 						return ['admitcardresults' => $datavalue, 'year_of_exam' => $exam_year, 'count' => $count, "exam_name" => $exam_name, "pdf_name" => @$pdf_name, "exam_type" => $exam_type, "candidate_address" => $candidate_address, "tier_id" => $tier_id, "tableName" => $tableName, "regNo" => $register_number];
 					} else {
-						$errorMsg = "Wrong Register Number  or Date of Birth or Exam";
+						$errorMsg = "Your credentials are NOT correct. Please try with correct credentials";
 					}
 					// If exam Type is DME End
 
@@ -824,40 +827,45 @@ class Helpers
 					$modelClass = new Admitcard();
 					$data =  $modelClass->getQueryListDV();
 
+					if($admitcard->getAdmitcardforTierCount($data_array)){
+						if ($admitcard->getAdmitcardforDV($data_array)) {
+							$admitcardresults = $admitcard->getAdmitcardforDV($data_array);
+							$array = json_decode(json_encode($admitcardresults), true);
+							$exam_name = $admitcard->getExamName($exam_value);
+							$count = count((array)$admitcardresults);
+							$arrays = [];
+							foreach ($data as $val) {
 
-					if ($admitcard->getAdmitcardforDV($data_array)) {
-						$admitcardresults = $admitcard->getAdmitcardforDV($data_array);
-						$array = json_decode(json_encode($admitcardresults), true);
-						$exam_name = $admitcard->getExamName($exam_value);
-						$count = count((array)$admitcardresults);
-						$arrays = [];
-						foreach ($data as $val) {
+								foreach (array_keys($array) as $res) {
+									if ($res == $val->col_name) {
+										$col_value =  $array[$res];
+									}
 
-							foreach (array_keys($array) as $res) {
-								if ($res == $val->col_name) {
-									$col_value =  $array[$res];
+									if ($res == 'pdf_attachment') {
+										$pdf_name =  $array[$res];
+									}
 								}
-
-								if ($res == 'pdf_attachment') {
-									$pdf_name =  $array[$res];
-								}
+								$arrays[] = array(
+									"col_name" => $val->col_name,
+									"col_description" => $val->col_description,
+									"is_dv" => $val->is_dv,
+									"is_dv_order" => $val->is_dv_order,
+									"col_value" => $col_value
+								);
 							}
-							$arrays[] = array(
-								"col_name" => $val->col_name,
-								"col_description" => $val->col_description,
-								"is_dv" => $val->is_dv,
-								"is_dv_order" => $val->is_dv_order,
-								"col_value" => $col_value
-							);
+							$datavalue = (object)$arrays;
+
+							$exam_year = $exam_name->table_exam_year;
+							//$this->printr($datavalue);
+
+							return ['admitcardresults' => $datavalue, 'year_of_exam' => $exam_year, 'count' => $count, "exam_name" => $exam_name, "pdf_name" => @$pdf_name, "exam_type" => $exam_type, "tier_id" => $tier_id, "tableName" => $tableName, "regNo" => $register_number];
+						} else {
+							
+							$errorMsg = "You can download your e-Admission certificate only 4 days before your date of Examination";
 						}
-						$datavalue = (object)$arrays;
-
-						$exam_year = $exam_name->table_exam_year;
-						//$this->printr($datavalue);
-
-						return ['admitcardresults' => $datavalue, 'year_of_exam' => $exam_year, 'count' => $count, "exam_name" => $exam_name, "pdf_name" => @$pdf_name, "exam_type" => $exam_type, "tier_id" => $tier_id, "tableName" => $tableName, "regNo" => $register_number];
-					} else {
-						$errorMsg = "Wrong Register Number  or Date of Birth or Exam";
+					}
+					else{
+						$errorMsg = "Your credentials are NOT correct. Please try with correct credentials";
 					}
 					//if exam type is DV -end
 			} // Switch Case End

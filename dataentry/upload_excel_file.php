@@ -67,7 +67,7 @@ include('header.php'); ?>
 							<div class="form-group selectedtier">	
 								<label for="selectedtier" class="col-sm-2 control-label">No of days prior to download<font style="color:red";>*</font> </label> 
 								<div class="col-sm-6">
-								<input type="text"   name="no_of_days" id="no_of_days"    type = "number"  class="form-control" value="" />	
+								<input type="text"   name="no_of_days" id="no_of_days"    maxlength="1" size="1" type = "number"   value="" />	
 								</div> 
 							</div>
 

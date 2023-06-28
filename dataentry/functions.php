@@ -3,7 +3,7 @@ require_once("config/db.php");
 
 // For Local Purpose 
 $base_url = "http://" . $_SERVER['SERVER_NAME'];
-$GLOBALS['local_path'] = $base_url . "/projects/sscsr/site/IndexController/admitcardpreview";
+$GLOBALS['local_path'] = $base_url . "/sscsr/site/IndexController/admitcardpreview";
 
 //For Online Purpose
 

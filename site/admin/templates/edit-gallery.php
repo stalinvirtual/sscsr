@@ -411,7 +411,7 @@ echo $this->get_header(); ?>
 
             $('input[type="file"]').change(function(e) {
 
-                debugger;
+            
             myfile = $(this).val();
             var ext = myfile.split('.').pop();
             if (ext == "jpg" ||ext == "jpeg" || ext == "png" || ext == "ico"  ||ext == "bmp" ) {
@@ -450,7 +450,6 @@ echo $this->get_header(); ?>
                     dataType: 'json',
                     success: function(response) {
                         if (response.message == 1) {
-                            debugger;
                             //alert("Welcome")
                             window.location.href = redirecturl;
 
@@ -463,7 +462,6 @@ echo $this->get_header(); ?>
         });
 
         $('.imageclassupload').on('change', function() {
-            debugger;
             myfile = $(this).val();
             var ext = myfile.split('.').pop();
             if (ext == "png" || ext == "jpg" || ext == "jpeg") {

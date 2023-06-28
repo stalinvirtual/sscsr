@@ -332,7 +332,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
         });
 
         $('#exam_data').on('click', '.kyc_status_publish_button', function (event) {
-            debugger;
+           
             var iconid = $(this).closest('td').find('.kyc_status_publish_button').attr('id');
             var exam_name = $(this).closest('tr').find('#exam_name_id').text();
             var sscsr_db_table_master_id = $(this).closest('td').find('#sscsr_db_table_master_id').val();

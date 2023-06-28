@@ -62,7 +62,7 @@ solution2 = NeededDataColumns.difference(ExcelFileDataColumns)
 #creating LOG file
 root_logger= logging.getLogger()
 root_logger.setLevel(logging.DEBUG) 
-handler = logging.FileHandler('D:/xampp/htdocs/projects/sscsr/dataentry/log/sscsr_log.log', 'w', 'utf-8')
+handler = logging.FileHandler('D:/xampp/htdocs/sscsr/dataentry/log/sscsr_log.log', 'w', 'utf-8')
 handler.setFormatter(logging.Formatter('%(message)s')) # or whatever
 root_logger.addHandler(handler)
 

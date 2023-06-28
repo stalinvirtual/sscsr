@@ -1084,8 +1084,8 @@ class IndexController extends FrontEndController
 			
             $admitcard = new Admitcard();
             
-            if ($admitcard->getAdmitcardforTier($data_array)) {
-                $admitcardresults = $admitcard->getAdmitcardforTier($data_array);
+            if ($admitcard->getAdmitcardforTierPreview($data_array)) {
+                $admitcardresults = $admitcard->getAdmitcardforTierPreview($data_array);
                 $kyas = new Exam();
 				$table_name = trim($exam_value);
 				$examname_by_year = $kyas->examNamebyYear($table_name);
@@ -1096,7 +1096,7 @@ class IndexController extends FrontEndController
                 $count = count($array);
                 return ['admitcardresults' => $admitcardresults,'count'=>$count,'examname'=>$examname_by_year,'year'=>$exam_year,"exam_type"=>$exam_type ];
             } else {
-                $errorMsg = "Wrong Register Number  or Date of Birth or Exam";
+                $errorMsg = "Your credentials are NOT correct. Please try with correct credentials";
             }
         }
         return ['errorMsg' => $errorMsg];
