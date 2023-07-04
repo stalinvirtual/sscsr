@@ -879,9 +879,30 @@ class PdfHelper extends Dompdf
 
 
 
-            if($paper2 == "NA"){
+            if($paper2 == "NA" && $paper3 == "NA" && $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
                $tableArray2 = array(
                   array($date1,$shift1,$time1, $paper1,$suject1,$mark1),
+                  
+                 
+               );
+
+            }
+            else if($paper3 == "NA" && $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
+              
+               $tableArray2 = array(
+                  array($date1,$shift1,$time1, $paper1,$suject1,$mark1),
+                  array($date2,$shift2,$time2, $paper2,$suject2,$mark2),
+                  
+                 
+               );
+
+            }
+            else if( $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
+              
+               $tableArray2 = array(
+                  array($date1,$shift1,$time1, $paper1,$suject1,$mark1),
+                  array($date2,$shift2,$time2, $paper2,$suject2,$mark2),
+                  array($date3,$shift3,$time3,$paper3,$suject3,$mark3),
                   
                  
                );
@@ -898,6 +919,18 @@ class PdfHelper extends Dompdf
                );
 
             }
+            else if($paper6 == "NA"){
+               $tableArray2 = array(
+                  array($date1,$shift1,$time1, $paper1,$suject1,$mark1),
+                  array($date2,$shift2,$time2, $paper2,$suject2,$mark2),
+                  array($date3,$shift3,$time3,$paper3,$suject3,$mark3),
+                  array($date4,$shift4,$time4, $paper4,$suject4,$mark4),
+                  array($date5,$shift5,$time5,$paper5,$suject5, $mark5),
+                 
+               );
+
+            }
+           
             else{
               
                $tableArray2 = array(

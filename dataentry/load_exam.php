@@ -6,27 +6,35 @@ require_once("functions.php");
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
 
     $output = "";
+   
+ 
+   
+
 
     $sql = "select * from  exam_master where status=:status order by exam_id desc";
     $params = array('status' => '0');
     $result = executeSQlAll($sql, $params);
     $resultCount = executeSQlAllCount($sql, $params);
+
     if ($resultCount != 0) {
+        
         $output .= "
 	 <form id='frm-example' action='' method='POST'>
 	 <table id='exam_data' class='display table table-striped table-bordered dt-responsive' width='100%'>
 						<thead>
 							<tr class='danger'>	
-							  <th>Sno</th>						  
+							  <th style='width: 28px; cursor: pointer;'>Sno</th>						  
 							  <th>Exam Name</th>                    
-							  <th>Exam Short Code</th>                    
+							  <th>Exam Short Code</th>  
+                              <th width='20px'>Action</th>                    
 							</tr>
 						</thead>
 						<tfoot>
 							<tr class='success'>       
 							<th>Sno</th>						  
 							<th>Exam Name</th>    
-							<th>Exam Short Code</th>    
+							<th>Exam Short Code</th>  
+                            <th width='20px'>Action</th>    
 							</tr>
 						</tfoot>
 					<tbody>

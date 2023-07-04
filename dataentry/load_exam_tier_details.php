@@ -99,14 +99,16 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 
 				$sql = "SELECT distinct LEAST(
 					(SELECT MIN(date) FROM (VALUES (date1::date-INTEGER '$row->no_of_days'), (date2::date-INTEGER '$row->no_of_days'),(date3::date-INTEGER '$row->no_of_days'), (date4::date-INTEGER '$row->no_of_days')) AS dates(date))
-				  ) AS yesterday_date from $row->table_name  where tier_id = '$row->tier_id'  order by yesterday_date asc limit 1";
+				  ) AS yesterday_date from $row->table_name  where tier_id = '$row->tier_id'  and date1 !='NA'  
+and date2 !='NA'  and date3 !='NA' and date4 !='NA'  order by yesterday_date asc limit 1";
 
 				// $sql = "SELECT date1::date - INTEGER '$row->no_of_days' AS yesterday_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
 				$result = getAll($sql);
 
 				$sql2 = "SELECT distinct LEAST(
 				(SELECT MIN(date) FROM (VALUES (date1::date), (date2::date),(date3::date), (date4::date)) AS dates(date))
-			  ) AS exam_date from $row->table_name  where tier_id = '$row->tier_id'  order by exam_date asc limit 1";
+			  ) AS exam_date from $row->table_name  where tier_id = '$row->tier_id'  and date1 !='NA'  
+and date2 !='NA'  and date3 !='NA' and date4 !='NA' order by exam_date asc limit 1";
 				// $sql2 = "SELECT date1::date  AS exam_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
 				$result2 = getAll($sql2);
 

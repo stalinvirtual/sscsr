@@ -4,6 +4,7 @@ date_default_timezone_set("Asia/Calcutta");
 $query =  "select 
 dtm.no_of_days,
 dbm.table_name,
+dbm.table_type,
 dtm.tier_id as tier_id,
 dtm.id as tier_master_id
 from exam_master em 
@@ -21,8 +22,59 @@ where dtm.stop_status = '0' AND dtm.status = '0' order by dbm.table_exam_year de
 
   
     foreach( $records as $record ){
-        $sqlExamDate = "SELECT date1::date - INTEGER '$record->no_of_days' as statusupdateddate FROM $record->table_name where tier_id = '$record->tier_id' and date1::date > now() order by id asc limit 1";
-      
+		if ($record->table_type == 'tier') {
+			
+			$tier_id =  $record->tier_id;
+			if($tier_id == '1'){
+				
+				$sqlExamDate = "SELECT date1::date - INTEGER '$record->no_of_days' as statusupdateddate FROM $record->table_name 
+			where tier_id = '$record->tier_id' and date1::date > now() order by id asc limit 1";
+				
+			}
+			else if($tier_id == '2'){
+				
+				$sqlExamDate = "SELECT distinct LEAST((SELECT MIN(date) FROM (VALUES (date1::date-INTEGER '$record->no_of_days'), 
+				(date2::date-INTEGER '$record->no_of_days'),
+						(date3::date-INTEGER '$record->no_of_days'),
+						(date4::date-INTEGER '$record->no_of_days')) AS statusupdateddate(date))) as  statusupdateddate
+						FROM $record->table_name 
+					  where tier_id = '$record->tier_id' and (date1::date-INTEGER '$record->no_of_days') > now()  and date1 !='NA'  
+and date2 !='NA'  and date3 !='NA' and date4 !='NA' limit 1";
+				
+				
+			
+			}
+			
+		}
+		 else if ($record->table_type == 'skill') {
+			 $sqlExamDate = "SELECT skill_test_date::date - INTEGER '$record->no_of_days' as statusupdateddate FROM $record->table_name 
+			where tier_id = '$record->tier_id' and date1::date > now() order by id asc limit 1";
+			
+			
+		}
+		else if ($record->table_type == 'dme') {
+			 $sqlExamDate = "SELECT date1::date - INTEGER '$record->no_of_days' as statusupdateddate FROM $record->table_name 
+			where tier_id = '$record->tier_id' and date1::date > now() order by id asc limit 1";
+			
+			
+		}
+		else if ($record->table_type == 'pet') {
+			 $sqlExamDate = "SELECT date1::date - INTEGER '$record->no_of_days' as statusupdateddate FROM $record->table_name 
+			where tier_id = '$record->tier_id' and date1::date > now() order by id asc limit 1";
+			
+			
+		}
+		else if ($record->table_type == 'dv') {
+			 $sqlExamDate = "SELECT dv_date::date - INTEGER '$record->no_of_days' as statusupdateddate FROM $record->table_name 
+			where tier_id = '$record->tier_id' and date1::date > now() order by id asc limit 1";
+			
+			
+		}
+		
+		
+        
+      //echo $sqlExamDate;
+	  //exit;
         $resultExamDate =  $pdo->prepare($sqlExamDate);
         $resultExamDate->execute();
         $recordDate = $resultExamDate->fetch();
@@ -32,9 +84,9 @@ where dtm.stop_status = '0' AND dtm.status = '0' order by dbm.table_exam_year de
         //$date = "2023-02-13";
 
         $date  = date("Y-m-d");
-        echo "Current Date : " . $date."\n";
+        echo "Current Date : " . $date."<br>";
 
-        echo  "Status Updated Date: ".$recordDate->statusupdateddate."\n";
+        echo  "Status Updated Date: ".$recordDate->statusupdateddate."<br>";
 
 
 

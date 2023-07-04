@@ -39,7 +39,7 @@ if (!isset($_SERVER['HTTP_REFERER']) && empty($_SERVER['HTTP_REFERER']) || !isse
 								<div class="form-group">
 									<label for="exam_year" class="col-sm-2 control-label">Select Year<font style="color:red"
 											;>*</font> </label>
-									<div class="col-sm-6">
+									<div class="col-xs-1">
 										<input type="text" min="<?php echo date('Y') - 5; ?>"
 											max="<?php echo date('Y') + 5; ?>" step="1" name="exam_year" id="exam_year"
 											maxlength="4"

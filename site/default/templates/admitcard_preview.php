@@ -54,7 +54,9 @@ $base_url =  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	
 
 <style>
-
+	.form-control{
+    height: 39px !important;
+	}
 </style>
 	
 </head>
@@ -144,7 +146,8 @@ $base_url =  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 							  <div class="form-group row">
 									<div class="col-xs-4">
 										<label for="exampleInputEmail1">Date of Birth</label>
-										<input type="text" class="form-control placeholder_font_size" name="dob" id="dob" value="" autocomplete="off"  readonly  required>
+									<input type="text" class="form-control placeholder_font_size" name="dob" id="dob" value="" autocomplete="off"  readonly  required>	
+									
 									</div>
 							 </div>
 							 
@@ -180,6 +183,12 @@ $base_url =  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 }
 .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
     color: black !important;
+}
+.ui-datepicker-trigger{
+	position: relative;
+    margin-left: 155px;
+    margin-top: -67px;
+    height: 20px;
 }
  </style>
 

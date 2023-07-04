@@ -532,7 +532,8 @@ class Admitcard extends DB
                 $whereArray = array(
                     'kd.dob' => $newDate, 
                     'kd.reg_no' => $register_number,
-                     'ted.tier_id' => $tier_id
+                     'ted.tier_id' => $tier_id,
+                     $str         => date('Y-m-d')
                     
                 );
 
@@ -552,6 +553,27 @@ class Admitcard extends DB
               
         } else {
 
+            if($tier_id == "1"){
+                $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+            }
+            else{
+                $str = "LEAST(ted.date1::date,ted.date2::date,ted.date3::date,ted.date4::date) - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm 
+                LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+
+            }
+
+            $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+            LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+
+            $whereArray = array(
+                'kd.dob' => $newDate, 
+                'kd.reg_no' => $register_number,
+                 'ted.tier_id' => $tier_id,
+                 $str         => date('Y-m-d')
+                
+            );
+
             $sql  = $this->select("kd.*,ted.*,t.tier_name, t.tier_id, ted.*,t.tier_name, t.tier_id , ii.pdf_attachment,
             CONCAT(kd.present_address,', ',kd.present_district,', ',kd.present_state,', ',substring(kd.present_pincode,1,6)) as candidate_address")
                 ->from("$kyas_tbl_name kd ")
@@ -560,7 +582,7 @@ class Admitcard extends DB
                 ->join("admitcard_important_instructions ii ", "trim(ted.exam_code) = trim(ii.exam_code) and ted.tier_id = ii.exam_tier ", "JOIN")
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
-                ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->where($whereArray)
                 ->get_one();
                
         }
@@ -1001,12 +1023,6 @@ class Admitcard extends DB
     }
     public function getPostPreference($table_name , $roll_no)
     {
-        
-
-
-      
-
-
         $sql  = $this->select('post_preference')
             ->from($table_name)
             ->where(['roll_no' => $roll_no])
@@ -1014,5 +1030,16 @@ class Admitcard extends DB
         $getcandidaterecord = $sql;
 
         return $getcandidaterecord;
+    }
+
+    public function getNo($tier_id,$tableName){
+
+        $instructions_sql  = $this->select("no_of_days")
+            ->from("sscsr_db_table_tier_master")
+            ->where(['tier_id' => $tier_id, 'table_name' =>$tableName])
+            ->get_one();
+
+            return  $instructions_sql ;
+
     }
 }

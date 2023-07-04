@@ -71,65 +71,12 @@ echo $this->get_header();?>
 									 <td>Name of the candidate :</td>
 									 <td><?php echo $admitcardresults->cand_name;?> </td>
 								  </tr>
-								  <tr class="success">
+								  <tr class="info">
 									 <td>Date of Birth :</td>
 									 <td><?php echo $admitcardresults->dob;?> </td>
 								  </tr>
 								
-								  <tr class="info">
-									 <td><?php echo (trim ($exam_type) == 'dv')?" DV Date: ": "Exam Date : "?></td>
-
-									  <td><?php 
-									 
-									 switch ($exam_type) {
-									  case "tier":
-									       $date = ($admitcardresults->date1 =="NA")?"": $admitcardresults->date1;
-											
-											echo $date;
-										break;
-										
-										case "dme":
-										$dme_venue = ($admitcardresults->dme_venue =="NA")?"": $admitcardresults->dme_venue;
-										echo $dme_venue."<br>" ;
-										break;
-										
-										case "pet":
-										$pet_venue = ($admitcardresults->pet_venue =="NA")?"": $admitcardresults->pet_venue;
-										echo $pet_venue."<br>" ;
-										break;
-										case "dv":
-										 $date = ($admitcardresults->dv_date =="NA")?"": $admitcardresults->dv_date;
-											
-											echo $date;
-										break;
-										
-									   default:
-									         $date = ($admitcardresults->skill_test_date =="NA")?"": $admitcardresults->skill_test_date;
-											
-											echo $date;
-										
-									 }
-				
-				
-
-									 
-									 
-											
-										?> 
-									</td>
-
-
-
-
-
-									 
-
-
-
-
-
-
-								  </tr>
+								 
 								   <tr class="success">
 									 <td>
 									 <?php 
@@ -322,7 +269,7 @@ echo $this->get_header();?>
 												<th width="20%">Gate / <br> Entry Closing Time</th>
 												';
 	
-												$output ="<table class='outer-table' style='width:100%'>{$th1}{$tcell}{$tfoot}</table>";
+												$output ="<table class='outer-table' style='width:100%'>{$th1}{$tcell}</table>";
 											echo $output;
 								}// Tier 1 Starts
 								else if($tier_id == 2){ // Tier 2 Starts
@@ -387,7 +334,7 @@ echo $this->get_header();?>
 						
 						
 						
-									if($paper2 == "NA"){
+									if($paper2 == "NA" && $paper3 == "NA" && $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
 									   $tableArray2 = array(
 										array($date1,$paper1,$report_p1,$gateclose_p1),
 										  
@@ -395,6 +342,23 @@ echo $this->get_header();?>
 									   );
 						
 									}
+									else if($paper3 == "NA" && $paper4 == "NA" && $paper5 == "NA" && $paper6 == "NA"){
+										$tableArray2 = array(
+										 array($date1,$paper1,$report_p1,$gateclose_p1),
+										 array($date2, $paper2,$report_p2,$gateclose_p2), 
+										  
+										);
+						 
+									 }
+									else if($paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
+										$tableArray2 = array(
+										 array($date1,$paper1,$report_p1,$gateclose_p1),
+										 array($date2, $paper2,$report_p2,$gateclose_p2),
+										 array($date3,$paper3,$report_p3,$gateclose_p3), 
+										  
+										);
+						 
+									 }
 						
 									else if($paper5 == "NA" && $paper6 == "NA"){
 									   $tableArray2 = array(
@@ -406,6 +370,16 @@ echo $this->get_header();?>
 									   );
 						
 									}
+									else if($paper6 == "NA"){
+										$tableArray2 = array(
+										   array($date1,$paper1,$report_p1,$gateclose_p1),
+										   array($date2, $paper2,$report_p2,$gateclose_p2),
+										   array($date3,$paper3,$report_p3,$gateclose_p3),
+										   array($date4, $paper4,$report_p4,$gateclose_p4),
+										   array($date5,$paper5, $report_p5,$gateclose_p5),
+										);
+						 
+									 }
 									else{
 									  
 									   $tableArray2 = array(
@@ -441,7 +415,7 @@ echo $this->get_header();?>
 						
 								 $output  .= '</table>
 								 <br>';
-								 $output .="<table class='outer-table' style='width:100%'>{$th1}{$tcell}{$tfoot}</table>";
+								 $output .="<table class='outer-table' style='width:100%'></table>";
 							   echo $output;
 	
 								} // Tier 2 Starts

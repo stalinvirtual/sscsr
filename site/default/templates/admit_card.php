@@ -7,6 +7,12 @@ use App\System\Route;
 echo $this->get_header();
 $base_url =  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 ?>
+
+<style>
+	.form-control{
+    height: 39px !important;
+	}
+</style>
 <section class="buttons">
 	<div class="container">
 		<div class="row breadcrumbruler">
@@ -165,6 +171,12 @@ $base_url =  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     border-radius: 50%;
     cursor: pointer;
 	}
+	.ui-datepicker-trigger{
+	position: relative;
+    margin-left: 155px;
+    margin-top: -30px;
+    height: 20px;
+}
 </style>
 
 
