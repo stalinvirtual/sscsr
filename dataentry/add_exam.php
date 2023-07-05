@@ -65,6 +65,10 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 													<button type="button" class="btn btn-default w3ls-button"
 														id="addNewStudent">Save</button>
 												</div>
+												<div class="col-sm-offset">
+													<button type="button" class="btn btn-default w3ls-button"
+														id="updateStudent">Update</button>
+												</div>
 											</form>
 										</div>
 									</div>
@@ -88,7 +92,7 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 							</div>
 							<div class="col-md-2 form-group">
 								<button class="btn w3ls-button hvr-icon-float-away col-24" data-toggle="modal"
-									data-target="#addStudent"> Add Exam</button>
+									data-target="#addStudent" id="addexam"> Add Exam</button>
 							</div>
 						</div>
 					</div>
@@ -107,6 +111,7 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 <script type="text/javascript">
 	validateHtml("exam_name");
 	validateHtml("exam_short_name");
+	$("#updateStudent").hide();
 	$(document).ready(function () {
 		// load exam	
 		$.ajax({
@@ -114,10 +119,72 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 			method: "GET",
 			success: function (data) {
 				$('#examdata').html(data);
+
+				$(document).on("click", ".edit", function () {
+				
+					var id = $(this).attr("id");
+					$.ajax({
+						url: "exam_edit.php",
+						type: "GET",
+						cache: false,
+						data: {
+							exam_name: id
+						},
+						success: function (res) {
+
+                        var data1 =JSON.parse(res);
+			               $('#exam_name').val(data1[0].exam_name);
+							$('#exam_short_name').val(data1[0].exam_short_name);
+							$("#updateStudent").show();
+							$("#addNewStudent").hide();
+						}
+					});
+				});
 			}
 		});
+
+		$("#addexam").on('click', function () {
+			$('#exam_name').val("");
+			$('#exam_short_name').val("");
+			$("#updateStudent").hide();
+			$("#addNewStudent").show();
+		});
+
+
+		$(document).on("click", "#updateStudent", function() { 
+        var exam_name = $('#exam_name').val();
+        var exam_short_name = $('#exam_short_name').val();
+		$.ajax({
+			url: "exam_update_ajax.php",
+			type: "POST",
+			cache: false,
+            data: {
+                exam_name: exam_name,
+                exam_short_name: exam_short_name
+            },
+			success: function(dataResult){
+				swal.fire({
+                title: '<span style="color:green">Success</span>',
+                text: 'Exam Updated Successfully',
+                type: 'success',
+                showCancelButton: false,
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+
+            }).then(function (result) {
+                if (result.value) {
+                    window.location.reload();
+                }
+            })
+
+
+			}
+		});
+	}); 
+
 		//Add new Exam details
 		$("#addNewStudent").on('click', function () {
+			
 			var examname = $('#exam_name').val();
 			var exam_short_name = $('#exam_short_name').val();
 			if (stringLengthCheck(examname, 15, 500, 'Exam Name') == true) {
@@ -126,7 +193,7 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 			else {
 				var examname = '';
 			}
-			if (stringLengthCheck(exam_short_name, 2, 6, 'Exam Code') == true) {
+			if (stringLengthCheck(exam_short_name, 2, 25, 'Exam Code') == true) {
 				var exam_short_name = exam_short_name;
 			}
 			else {
