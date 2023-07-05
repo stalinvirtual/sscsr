@@ -113,6 +113,11 @@ $base_url =  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 </section>
 <?php include "footer2.php";?>
 <style>
+	
+	.form-control{
+    height: 39px !important;
+	}
+
 .select2-selection__rendered {
     line-height: 31px !important;
 	white-space: inherit !important;
@@ -135,6 +140,13 @@ $base_url =  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 }
 .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
     color: black !important;
+}
+.ui-datepicker-trigger{
+	position: relative;
+    margin-left: 155px;
+	margin-top: -30px;
+    height: 20px;
+
 }
  </style>
 

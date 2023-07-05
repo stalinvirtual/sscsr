@@ -881,7 +881,7 @@ class PdfHelper extends Dompdf
 
 
 
-            if($paper2 == "NA"){
+            if($paper2 == "NA" && $paper3 == "NA" && $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
                $tableArray2 = array(
                   array($date1,$shift1,$time1, $paper1,$suject1,$mark1),
                   

@@ -1097,12 +1097,6 @@ class Admitcard extends DB
     }
     public function getPostPreference($table_name , $roll_no)
     {
-        
-
-
-      
-
-
         $sql  = $this->select('post_preference')
             ->from($table_name)
             ->where(['roll_no' => $roll_no])

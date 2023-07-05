@@ -29,7 +29,7 @@ include('header.php'); ?>
 							</div>
 							<div class="form-group">        
 								<label for="exam_year" class="col-sm-2 control-label">Select Year<font style="color:red";>*</font> </label> 
-								<div class="col-sm-6">
+								<div class="col-xs-2">
 									<input type="text" min="<?php echo date('Y')-5 ;?>" max="<?php echo date('Y')+5 ;?>" step="1"  name="exam_year" id="exam_year" maxlength="4"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number"  class="form-control" value="<?php echo date('Y');?>" />															  
 								</div> 
 								<div id="year_exists" class=" col-sm-4" >	
@@ -39,7 +39,7 @@ include('header.php'); ?>
 						
 							<div class="form-group selectedtier">	
 								<label for="selectedtier" class="col-sm-2 control-label">Exam Tier<font style="color:red";>*</font> </label> 
-								<div class="col-sm-6">
+								<div class="col-xs-2">
 									<select name="selectedtier" id="selectedtier" required="true" class="form-control">
 										<option value="0" selected="selected">Select Tier</option>		
 									</select>

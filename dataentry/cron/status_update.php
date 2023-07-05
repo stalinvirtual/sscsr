@@ -34,8 +34,11 @@ where dtm.stop_status = '0' AND dtm.status = '0' order by dbm.table_exam_year de
 				
 				$sqlExamDate = "SELECT date1::date - INTEGER '$record->no_of_days' as statusupdateddate FROM $record->table_name 
 			where tier_id = '$record->tier_id' and date1::date > now() order by id asc limit 1";
+<<<<<<< HEAD
 			//echo $sqlExamDate;
 			//exit;
+=======
+>>>>>>> d32e4936a63e4205af7cc0fc81ae7b7b49e06a0b
 				
 			}
 			else if($tier_id == '2'){
@@ -80,7 +83,11 @@ and date2 !='NA'  and date3 !='NA' and date4 !='NA' limit 1";
 		
 		
         
+<<<<<<< HEAD
      // echo $sqlExamDate;
+=======
+      //echo $sqlExamDate;
+>>>>>>> d32e4936a63e4205af7cc0fc81ae7b7b49e06a0b
 	  //exit;
         $resultExamDate =  $pdo->prepare($sqlExamDate);
         $resultExamDate->execute();
@@ -93,7 +100,11 @@ and date2 !='NA'  and date3 !='NA' and date4 !='NA' limit 1";
         $date  = date("Y-m-d");
         echo "Current Date : " . $date."<br>";
 
+<<<<<<< HEAD
         echo  "Status Updated Date: ".@$recordDate->statusupdateddate."<br>";
+=======
+        echo  "Status Updated Date: ".$recordDate->statusupdateddate."<br>";
+>>>>>>> d32e4936a63e4205af7cc0fc81ae7b7b49e06a0b
 
 
 

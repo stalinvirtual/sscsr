@@ -269,7 +269,7 @@ echo $this->get_header();?>
 												<th width="20%">Gate / <br> Entry Closing Time</th>
 												';
 	
-												$output ="<table class='outer-table' style='width:100%'>{$th1}{$tcell}{$tfoot}</table>";
+												$output ="<table class='outer-table' style='width:100%'>{$th1}{$tcell}</table>";
 											echo $output;
 								}// Tier 1 Starts
 								else if($tier_id == 2){ // Tier 2 Starts
@@ -334,7 +334,7 @@ echo $this->get_header();?>
 						
 						
 						
-									if($paper2 == "NA"){
+									if($paper2 == "NA" && $paper3 == "NA" && $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
 									   $tableArray2 = array(
 										array($date1,$paper1,$report_p1,$gateclose_p1),
 										  
@@ -342,6 +342,23 @@ echo $this->get_header();?>
 									   );
 						
 									}
+									else if($paper3 == "NA" && $paper4 == "NA" && $paper5 == "NA" && $paper6 == "NA"){
+										$tableArray2 = array(
+										 array($date1,$paper1,$report_p1,$gateclose_p1),
+										 array($date2, $paper2,$report_p2,$gateclose_p2), 
+										  
+										);
+						 
+									 }
+									else if($paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
+										$tableArray2 = array(
+										 array($date1,$paper1,$report_p1,$gateclose_p1),
+										 array($date2, $paper2,$report_p2,$gateclose_p2),
+										 array($date3,$paper3,$report_p3,$gateclose_p3), 
+										  
+										);
+						 
+									 }
 						
 									else if($paper5 == "NA" && $paper6 == "NA"){
 									   $tableArray2 = array(
@@ -353,6 +370,16 @@ echo $this->get_header();?>
 									   );
 						
 									}
+									else if($paper6 == "NA"){
+										$tableArray2 = array(
+										   array($date1,$paper1,$report_p1,$gateclose_p1),
+										   array($date2, $paper2,$report_p2,$gateclose_p2),
+										   array($date3,$paper3,$report_p3,$gateclose_p3),
+										   array($date4, $paper4,$report_p4,$gateclose_p4),
+										   array($date5,$paper5, $report_p5,$gateclose_p5),
+										);
+						 
+									 }
 									else{
 									  
 									   $tableArray2 = array(
@@ -388,7 +415,7 @@ echo $this->get_header();?>
 						
 								 $output  .= '</table>
 								 <br>';
-								 $output .="<table class='outer-table' style='width:100%'>{$th1}{$tcell}{$tfoot}</table>";
+								 $output .="<table class='outer-table' style='width:100%'></table>";
 							   echo $output;
 	
 								} // Tier 2 Starts
