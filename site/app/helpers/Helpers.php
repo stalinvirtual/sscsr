@@ -662,7 +662,11 @@ class Helpers
 							$datavalue = (object)$arrays;
 							return ['admitcardresults' => $datavalue, 'year_of_exam' => $exam_year, 'count' => $count, "exam_name" => $exam_name, "pdf_name" => @$pdf_name, "exam_type" => $exam_type, "candidate_address" => $candidate_address, "tier_id" => $tier_id, "tableName" => $tableName, "regNo" => $register_number];
 						} else {
-							$errorMsg = "You can download your e-Admission certificate only 4 days before your date of Examination";
+							$modelClass = new Admitcard();
+								  $data =  $modelClass->getNo( $tier_id,$tableName);
+						    $no_of_days = $data->no_of_days;
+
+							$errorMsg = "You can download your e-Admission certificate only $no_of_days days before your date of Examination";
 						}
 					}
 					else{

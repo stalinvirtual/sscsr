@@ -18,7 +18,7 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 					<div class="form-title">
 						<div class="row">
 							<div class="col-md-9 form-group">
-								<h4>List of Exam Tier Master </h4>
+								<h4>Publish Admit card </h4>
 							</div>
 							<div class="col-md-2 form-group">
 								<!-- <button class="btn w3ls-button hvr-icon-float-away col-24" onclick="preview()">Admit Card Preview </button>-->

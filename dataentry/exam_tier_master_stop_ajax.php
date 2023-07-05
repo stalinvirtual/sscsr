@@ -12,10 +12,11 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
         date_default_timezone_set("Asia/Calcutta");
         $updated_time = $date = date("Y-m-d H:i:s");
         if ($iconid_id == "green") {
-            $sql = "UPDATE public.sscsr_db_table_tier_master SET  stop_status= '0',updated_on = '$updated_time' WHERE id='$id'";
+            $sql = "UPDATE public.sscsr_db_table_tier_master SET  status= '1',updated_on = '$updated_time' WHERE id='$id'";
         } else {
-            $sql = "UPDATE public.sscsr_db_table_tier_master SET  stop_status= '1',updated_on = '$updated_time' WHERE id='$id'";
+            $sql = "UPDATE public.sscsr_db_table_tier_master SET  status= '0',updated_on = '$updated_time' WHERE id='$id'";
         }
+        
 
 
         $stmt = $pdo->prepare($sql);

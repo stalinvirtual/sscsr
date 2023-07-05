@@ -19,7 +19,7 @@ $base_url =  "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 			</div>
 		</div>
 	</div>
-	<p style="text-align:center"> ( cgle 2019 /  91000299330  /  29-07-1995 )  </p>
+	<p style="text-align:center"> ( cgle 2022 /  10000092576  /  04-06-1990 )  </p>
 	<div class="container" id="main">
 		<div class="row">
 			<div class="col-lg-3">

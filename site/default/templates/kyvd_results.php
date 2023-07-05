@@ -71,65 +71,12 @@ echo $this->get_header();?>
 									 <td>Name of the candidate :</td>
 									 <td><?php echo $admitcardresults->cand_name;?> </td>
 								  </tr>
-								  <tr class="success">
+								  <tr class="info">
 									 <td>Date of Birth :</td>
 									 <td><?php echo $admitcardresults->dob;?> </td>
 								  </tr>
 								
-								  <tr class="info">
-									 <td><?php echo (trim ($exam_type) == 'dv')?" DV Date: ": "Exam Date : "?></td>
-
-									  <td><?php 
-									 
-									 switch ($exam_type) {
-									  case "tier":
-									       $date = ($admitcardresults->date1 =="NA")?"": $admitcardresults->date1;
-											
-											echo $date;
-										break;
-										
-										case "dme":
-										$dme_venue = ($admitcardresults->dme_venue =="NA")?"": $admitcardresults->dme_venue;
-										echo $dme_venue."<br>" ;
-										break;
-										
-										case "pet":
-										$pet_venue = ($admitcardresults->pet_venue =="NA")?"": $admitcardresults->pet_venue;
-										echo $pet_venue."<br>" ;
-										break;
-										case "dv":
-										 $date = ($admitcardresults->dv_date =="NA")?"": $admitcardresults->dv_date;
-											
-											echo $date;
-										break;
-										
-									   default:
-									         $date = ($admitcardresults->skill_test_date =="NA")?"": $admitcardresults->skill_test_date;
-											
-											echo $date;
-										
-									 }
-				
-				
-
-									 
-									 
-											
-										?> 
-									</td>
-
-
-
-
-
-									 
-
-
-
-
-
-
-								  </tr>
+								 
 								   <tr class="success">
 									 <td>
 									 <?php 

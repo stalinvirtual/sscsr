@@ -17,7 +17,6 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 					dtm.tier_id as tier_id,
 					dtm.updated_on as updated_on,
 					dtm.stop_status as stop_status,
-					dtm.status as status,
 					tm.tier_name as tier_name,
 					dtm.id as tier_master_id,
 					dtm.status as dtmstatus  
@@ -108,16 +107,10 @@ and date2 !='NA'  and date3 !='NA' and date4 !='NA'  order by yesterday_date asc
 				// $sql = "SELECT date1::date - INTEGER '$row->no_of_days' AS yesterday_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
 				$result = getAll($sql);
 
-				$sql2 = "SELECT COALESCE(
-					LEAST(date1, date2, date3, date4, date5, date6),
-					'NA'
-				  ) AS exam_date
-				  from $row->table_name where tier_id ='$row->tier_id' order by exam_date asc limit 1";
-
-// 				$sql2 = "SELECT distinct LEAST(
-// 				(SELECT MIN(date) FROM (VALUES (date1::date), (date2::date),(date3::date), (date4::date)) AS dates(date))
-// 			  ) AS exam_date from $row->table_name  where tier_id = '$row->tier_id'  and date1 !='NA'  
-// and date2 !='NA'  and date3 !='NA' and date4 !='NA'  order by exam_date asc limit 1";
+				$sql2 = "SELECT distinct LEAST(
+				(SELECT MIN(date) FROM (VALUES (date1::date), (date2::date),(date3::date), (date4::date)) AS dates(date))
+			  ) AS exam_date from $row->table_name  where tier_id = '$row->tier_id'  and date1 !='NA'  
+and date2 !='NA'  and date3 !='NA' and date4 !='NA'  order by exam_date asc limit 1";
 
 
 					//echo $sql2;
@@ -131,17 +124,15 @@ and date2 !='NA'  and date3 !='NA' and date4 !='NA'  order by yesterday_date asc
 
 
 		} else if ($row->table_type == 'skill') {
-
-			
 			$sql = "SELECT skill_test_date::date - INTEGER '$row->no_of_days' AS yesterday_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
 			$result = getAll($sql);
 			$sql2 = "SELECT skill_test_date::date  AS exam_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
 			$result2 = getAll($sql2);
 		} else if ($row->table_type == 'dme') {
-			$sql2 = "SELECT date_of_dme::date  AS exam_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
+			$sql2 = "SELECT date1::date  AS exam_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
 			$result2 = getAll($sql2);
 		} else if ($row->table_type == 'pet') {
-			$sql2 = "SELECT pet_date::date  AS exam_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
+			$sql2 = "SELECT date1::date  AS exam_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
 			$result2 = getAll($sql2);
 		} else if ($row->table_type == 'dv') {
 			$sql = "SELECT dv_date::date - INTEGER '$row->no_of_days' AS yesterday_date FROM $row->table_name where tier_id = '$row->tier_id' order by id asc limit 1";
@@ -183,7 +174,7 @@ and date2 !='NA'  and date3 !='NA' and date4 !='NA'  order by yesterday_date asc
 			<td>' . $table_for . '</td>
 			<td style="text-align:right">' . $table_tot_row_count . '</td>
 			<td style="text-align:right" class="publish-button">' . $row->no_of_days . '&nbsp;&nbsp;<i class="fa fa-pencil "  id ="red" style="color:grey"></i> <input class="form-control" type="hidden" name="id" id="tier_master_id" value=' . $row->tier_master_id . '></td>
-			<td style="text-align:right" class="exam_date_class">' . date("d-m-Y", strtotime($current_exam_date)) . '</td>
+			<td style="text-align:right" class="exam_date_class">' . $current_exam_date . '</td>
 			<td  class="exam_status_class text-center">
 				<i class="fa fa-flag status-change" id ="green" style="font-size:18px;color:' . (($row->dtmstatus == 1) ? "green" : "red") . '"></i>  
 			</td>
@@ -200,7 +191,7 @@ and date2 !='NA'  and date3 !='NA' and date4 !='NA'  order by yesterday_date asc
 		$output .= '<td>
 				<form method="post"> 
 					<span>Date & Time:' . $time . '</span><br/>';
-		if ($row->status == '0') {
+		if ($row->stop_status == '1') {
 			$output .= "<span style='color:red'>Hold</span> &nbsp;";
 			$output .= '<button type="button" id="green" class="btn btn-success stop_status_class">Start</button>';
 		} else {
@@ -545,6 +536,10 @@ and date2 !='NA'  and date3 !='NA' and date4 !='NA'  order by yesterday_date asc
 
 		//Start , Stop Button
 		$('#exam_data').on('click', '.stop_status_class', function (event) {
+
+			
+
+
 
 			// $('#tbl').on('click', 'tbody tr a', function() 
 

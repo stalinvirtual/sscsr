@@ -273,6 +273,9 @@ class Admitcard extends DB
         $register_number = $this->cleanData($register_number);
         $tier_id = $this->cleanData($tier_id);
 
+        $str = "ted.pet_date::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)";
+
 
 
         if ($instructions_count->count == 0) {
@@ -283,6 +286,7 @@ class Admitcard extends DB
                 ->join("$table_name ted ", "kd.reg_no = ted.reg_no and trim(kd.exam_code) = trim(ted.exam_code) ", "JOIN")
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
                 ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->wherecondition($str)
                 ->get_one();
         } else {
 
@@ -295,6 +299,7 @@ class Admitcard extends DB
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
                 ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->wherecondition($str)
                 ->get_one();
         }
 
@@ -455,6 +460,8 @@ class Admitcard extends DB
     public function getAdmitcardforTier($data_array)
     {
 
+      
+
         $originalDate = $data_array['dob'];
         $newDate = $this->getDobFormat($originalDate);
         $table_name = $data_array['table_name'];
@@ -475,12 +482,6 @@ class Admitcard extends DB
             ->from("admitcard_important_instructions")
             ->where(['exam_tier' => $tier_id, 'exam_code' => $exam_code])
             ->get_one();
-
-      
-
-
-
-
 
         $kyas_tbl_name = $this->cleanData($kyas_tbl_name);
 
@@ -516,23 +517,56 @@ class Admitcard extends DB
             }
             else{
 
+               
+
                 if($tier_id == "1"){
                     $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
-                    LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+                    LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+                    AND current_date <= ted.date1::date ";
+
+                    
                 }
                 else{
-                    $str = "LEAST(ted.date1::date,ted.date2::date,ted.date3::date,ted.date4::date) - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm 
-                    LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+
+
+                 
+                    $str = "COALESCE(
+                        LEAST(
+                          CASE WHEN date1 = 'NA' THEN NULL ELSE TO_DATE(date1, 'DD-MM-YYYY') END,
+                          CASE WHEN date2 = 'NA' THEN NULL ELSE TO_DATE(date2, 'DD-MM-YYYY') END,
+                          CASE WHEN date3 = 'NA' THEN NULL ELSE TO_DATE(date3, 'DD-MM-YYYY') END,
+                          CASE WHEN date4 = 'NA' THEN NULL ELSE TO_DATE(date4, 'DD-MM-YYYY') END,
+                          CASE WHEN date5 = 'NA' THEN NULL ELSE TO_DATE(date5, 'DD-MM-YYYY') END,
+                          CASE WHEN date6 = 'NA' THEN NULL ELSE TO_DATE(date6, 'DD-MM-YYYY') END
+                        ),
+                        '9999-12-31'::DATE
+                      )- (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                                     LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code  where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+                                     AND current_date <= COALESCE(
+                        LEAST(
+                          CASE WHEN date1 = 'NA' THEN NULL ELSE TO_DATE(date1, 'DD-MM-YYYY') END,
+                          CASE WHEN date2 = 'NA' THEN NULL ELSE TO_DATE(date2, 'DD-MM-YYYY') END,
+                          CASE WHEN date3 = 'NA' THEN NULL ELSE TO_DATE(date3, 'DD-MM-YYYY') END,
+                          CASE WHEN date4 = 'NA' THEN NULL ELSE TO_DATE(date4, 'DD-MM-YYYY') END,
+                          CASE WHEN date5 = 'NA' THEN NULL ELSE TO_DATE(date5, 'DD-MM-YYYY') END,
+                          CASE WHEN date6 = 'NA' THEN NULL ELSE TO_DATE(date6, 'DD-MM-YYYY') END
+                        ),
+                        '9999-12-31'::DATE
+                      )";
 
                 }
 
-                $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
-                LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+                // $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                // LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)  <= current_date
+                // AND current_date <= ted.date1::date";
+                
 
+                date_default_timezone_set('Asia/Kolkata'); 
                 $whereArray = array(
                     'kd.dob' => $newDate, 
                     'kd.reg_no' => $register_number,
-                     'ted.tier_id' => $tier_id
+                     'ted.tier_id' => $tier_id,
+                    
                     
                 );
 
@@ -548,9 +582,64 @@ class Admitcard extends DB
                 ->join("$table_name ted ", "kd.reg_no = ted.reg_no and trim(kd.exam_code) = trim(ted.exam_code) ", "JOIN")
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
                 ->where($whereArray)
+                ->wherecondition($str)
                 ->get_one();
+
+
+                // echo '<pre>';
+                // print_r($instructions_sql);
+               
               
         } else {
+
+            if($tier_id == "1"){
+                $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+                AND current_date <= ted.date1::date";
+            }
+            else{
+               
+
+                
+                $str = "COALESCE(
+                    LEAST(
+                      CASE WHEN date1 = 'NA' THEN NULL ELSE TO_DATE(date1, 'DD-MM-YYYY') END,
+                      CASE WHEN date2 = 'NA' THEN NULL ELSE TO_DATE(date2, 'DD-MM-YYYY') END,
+                      CASE WHEN date3 = 'NA' THEN NULL ELSE TO_DATE(date3, 'DD-MM-YYYY') END,
+                      CASE WHEN date4 = 'NA' THEN NULL ELSE TO_DATE(date4, 'DD-MM-YYYY') END,
+                      CASE WHEN date5 = 'NA' THEN NULL ELSE TO_DATE(date5, 'DD-MM-YYYY') END,
+                      CASE WHEN date6 = 'NA' THEN NULL ELSE TO_DATE(date6, 'DD-MM-YYYY') END
+                    ),
+                    '9999-12-31'::DATE
+                  )- (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                                 LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code  
+                                 where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+                                 AND current_date <= COALESCE(
+                    LEAST(
+                      CASE WHEN date1 = 'NA' THEN NULL ELSE TO_DATE(date1, 'DD-MM-YYYY') END,
+                      CASE WHEN date2 = 'NA' THEN NULL ELSE TO_DATE(date2, 'DD-MM-YYYY') END,
+                      CASE WHEN date3 = 'NA' THEN NULL ELSE TO_DATE(date3, 'DD-MM-YYYY') END,
+                      CASE WHEN date4 = 'NA' THEN NULL ELSE TO_DATE(date4, 'DD-MM-YYYY') END,
+                      CASE WHEN date5 = 'NA' THEN NULL ELSE TO_DATE(date5, 'DD-MM-YYYY') END,
+                      CASE WHEN date6 = 'NA' THEN NULL ELSE TO_DATE(date6, 'DD-MM-YYYY') END
+                    ),
+                    '9999-12-31'::DATE
+                  )";
+
+            }
+
+            // $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+            // LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)  <= current_date
+            // AND current_date <= ted.date1::date";
+            date_default_timezone_set('Asia/Kolkata'); 
+
+            $whereArray = array(
+                'kd.dob' => $newDate, 
+                'kd.reg_no' => $register_number,
+                 'ted.tier_id' => $tier_id 
+                // $str         => date('Y-m-d')
+                
+            );
 
             $sql  = $this->select("kd.*,ted.*,t.tier_name, t.tier_id, ted.*,t.tier_name, t.tier_id , ii.pdf_attachment,
             CONCAT(kd.present_address,', ',kd.present_district,', ',kd.present_state,', ',substring(kd.present_pincode,1,6)) as candidate_address")
@@ -560,12 +649,13 @@ class Admitcard extends DB
                 ->join("admitcard_important_instructions ii ", "trim(ted.exam_code) = trim(ii.exam_code) and ted.tier_id = ii.exam_tier ", "JOIN")
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
-                ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->where($whereArray)
+                ->wherecondition($str)
                 ->get_one();
                
         }
-             // echo $this->last_query;
-             //  exit;
+            //echo $this->last_query;
+            //  exit;
       
 
         $getcandidaterecord = $sql;
@@ -609,12 +699,12 @@ class Admitcard extends DB
         $tier_id = $this->cleanData($tier_id);
         
         $str = "ted.skill_test_date::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
-        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)";
         $whereArray = array(
             'kd.dob'      => $newDate, 
             'kd.reg_no'   => $register_number,
             'ted.tier_id' => $tier_id,
-             $str         => date('Y-m-d')
+           
             
         );
 
@@ -627,6 +717,7 @@ class Admitcard extends DB
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
                 ->where($whereArray)
+                ->wherecondition($str)
                 ->get_one();
         } else {
 
@@ -640,6 +731,7 @@ class Admitcard extends DB
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
                 ->where($whereArray)
+                ->wherecondition($str)
                 ->get_one();
         }
 
@@ -686,6 +778,8 @@ class Admitcard extends DB
 
         $register_number = $this->cleanData($register_number);
         $tier_id = $this->cleanData($tier_id);
+        $str = "ted.date_of_dme::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)";
 
 
         if ($instructions_count->count == 0) {
@@ -699,6 +793,7 @@ class Admitcard extends DB
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
                 ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->wherecondition($str)
                 ->get_one();
         } else {
 
@@ -709,6 +804,7 @@ class Admitcard extends DB
                 ->join("admitcard_important_instructions ii ", "trim(ted.exam_code) = trim(ii.exam_code)  and ted.tier_id = ii.exam_tier ", "JOIN")
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
                 ->where(['kd.dob' => $newDate, 'kd.reg_no' => $register_number, 'ted.tier_id' => $tier_id])
+                ->wherecondition($str)
                 ->get_one();
         }
         //echo $sql;
@@ -1014,5 +1110,16 @@ class Admitcard extends DB
         $getcandidaterecord = $sql;
 
         return $getcandidaterecord;
+    }
+
+    public function getNo($tier_id,$tableName){
+
+        $instructions_sql  = $this->select("no_of_days")
+            ->from("sscsr_db_table_tier_master")
+            ->where(['tier_id' => $tier_id, 'table_name' =>$tableName])
+            ->get_one();
+
+            return  $instructions_sql ;
+
     }
 }

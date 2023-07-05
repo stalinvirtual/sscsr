@@ -295,12 +295,12 @@ class PdfHelper extends Dompdf
                case "21":
                //venue2_title
                $key21 = $value["col_description"];
-               $value21 = $value["col_value"];
+               $value21 = $value["col_value"]=="NA"?"": $value["col_value"];
                break;
                case "22":
                //venue2_address
                $key22 = $value["col_description"];
-               $value22 = $value["col_value"];
+               $value22 = $value["col_value"]=="NA"?"": $value["col_value"];
                break;
                case "23":
                //paper1
@@ -695,13 +695,15 @@ class PdfHelper extends Dompdf
          $output .=  '<img src='.$sign_path.' width="130" height="30">';
       }
 
-      if($value21 == "NA"){
+    
+
+      if($value21 == ""){
 
          $value21 ="";
 
       }
       else{
-         $value21 = $value21;
+         $value21 = $value21.",";
       }
 
       if($value22 == "NA"){
@@ -742,13 +744,13 @@ class PdfHelper extends Dompdf
    <table  style="width:100%"; class= "tableClass">
       <tr>
          <td style="width:75%; vertical-align: text-top;text-align:left;border:0px solid black;border-collapse: collapse;">
-            <b> Examination Venue :  </b>  '.$value19 .' , '.$value20.' 
+            <b> Examination Venue :  </b> '.$value19 .' , '.$value20.' 
          </td>
         
       </tr>
       <tr>
       <td style="width:75%; vertical-align: text-top;text-align:left;border:0px solid black;border-collapse: collapse;">
-      '.$value21 .'  , '.$value22.'
+      '.$value21 .''.$value22.'
    </td>
       </tr>
    <!-- <tr>
@@ -887,6 +889,27 @@ class PdfHelper extends Dompdf
                );
 
             }
+            else if($paper3 == "NA" && $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
+              
+               $tableArray2 = array(
+                  array($date1,$shift1,$time1, $paper1,$suject1,$mark1),
+                  array($date2,$shift2,$time2, $paper2,$suject2,$mark2),
+                  
+                 
+               );
+
+            }
+            else if( $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
+              
+               $tableArray2 = array(
+                  array($date1,$shift1,$time1, $paper1,$suject1,$mark1),
+                  array($date2,$shift2,$time2, $paper2,$suject2,$mark2),
+                  array($date3,$shift3,$time3,$paper3,$suject3,$mark3),
+                  
+                 
+               );
+
+            }
 
             else if($paper5 == "NA" && $paper6 == "NA"){
                $tableArray2 = array(
@@ -898,6 +921,18 @@ class PdfHelper extends Dompdf
                );
 
             }
+            else if($paper6 == "NA"){
+               $tableArray2 = array(
+                  array($date1,$shift1,$time1, $paper1,$suject1,$mark1),
+                  array($date2,$shift2,$time2, $paper2,$suject2,$mark2),
+                  array($date3,$shift3,$time3,$paper3,$suject3,$mark3),
+                  array($date4,$shift4,$time4, $paper4,$suject4,$mark4),
+                  array($date5,$shift5,$time5,$paper5,$suject5, $mark5),
+                 
+               );
+
+            }
+           
             else{
               
                $tableArray2 = array(
@@ -981,7 +1016,7 @@ class PdfHelper extends Dompdf
          //First Pdf insert 
          $output = $document->output();
          $admitcardpdf = self::$PDF_TEMPLATE_PATH."/".$file_name.".pdf";
-         //echo  $admitcardpdf ;
+        
          file_put_contents($admitcardpdf, $output);
          $pdf = new \Clegginabox\PDFMerger\PDFMerger;
          $pdf->addPDF($admitcardpdf, '1');
@@ -989,6 +1024,8 @@ class PdfHelper extends Dompdf
          }
          else{
          $pdfPath = $GLOBALS['local_instructions_path'];
+        // echo  $pdfPath;
+        // exit;
          $pdf_file = $pdfPath.$pdfname;
          $pdf->addPDF($pdf_file);
          }
