@@ -90,7 +90,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 
 					$stmt = $pdo->prepare("insert into sscsr_db_table_tier_master (id,table_name, tier_id, table_exam_year, status,exam_code,no_of_days,stop_status) values (?,?,?,?,?,?,?,?)");
 
-					$stmt->execute([$id, $table_name, $tier_id, $exam_year, '0',$exam_code,$daycount,'1']);
+					$stmt->execute([$id, $table_name, $tier_id, $exam_year, '1',$exam_code,$daycount,'1']);
 
 
 					$stmt2 = $pdo->prepare("insert into sscsr_db_table_city_tier_master (id,table_name, tier_id, table_exam_year, status,exam_code,no_of_days,stop_status) values (?,?,?,?,?,?,?,?)");

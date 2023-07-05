@@ -119,7 +119,7 @@ $sql  = $this->select("DISTINCT em.exam_name, dbm.table_exam_year, dbm.table_typ
         
         ->join("sscsr_db_table_tier_master dtm","dbm.table_name = dtm.table_name","JOIN")
         ->join("tier_master tm","cast(dtm.tier_id as char(255)) =  cast(tm.tier_id as char(255))","JOIN")
-        ->where(['dtm.status' => '1','dtm.stop_status' => '0'])
+        ->where(['dtm.status' => '1','dtm.stop_status' => '1'])
         ->like('dbm.table_exam_short_name',$q)
         ->order_by("dbm.table_exam_year desc,dtm.tier_id asc")
         ->get_list();

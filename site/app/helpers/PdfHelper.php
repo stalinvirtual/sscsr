@@ -491,8 +491,8 @@ class PdfHelper extends Dompdf
             
       }
       else{
-         $reporting_time                = "Shift 1 : ".$value66.","."<br><div style='margin-left:115px'>Shift 2 : ".$value67.".</div>";
-         $venue_detail_gate_close       = "Shift 1 : ".$value68.","."<br><div style='margin-left:215px'>Shift 2 : ".$value69.".</div>";
+         $reporting_time                = "Shift 1 : ".$value66."<br><div style='margin-left:113px'>Shift 2 : ".$value67."</div>";
+         $venue_detail_gate_close       = "Shift 1 : ".$value68."<br><div style='margin-left:213px'>Shift 2 : ".$value69."</div>";
       }
          $headerImg = $GLOBALS['pdf_header_image_server_path'] ."header.png" ;
         
@@ -887,6 +887,7 @@ class PdfHelper extends Dompdf
                   
                  
                );
+               array_multisort(array_column($tableArray2, 0), SORT_ASC, $tableArray2);
 
             }
             else if($paper3 == "NA" && $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
@@ -897,6 +898,7 @@ class PdfHelper extends Dompdf
                   
                  
                );
+               array_multisort(array_column($tableArray2, 0), SORT_ASC, $tableArray2);
 
             }
             else if( $paper4 == "NA"&& $paper5 == "NA" && $paper6 == "NA"){
@@ -908,6 +910,7 @@ class PdfHelper extends Dompdf
                   
                  
                );
+               array_multisort(array_column($tableArray2, 0), SORT_ASC, $tableArray2);
 
             }
 
@@ -919,6 +922,7 @@ class PdfHelper extends Dompdf
                   array($date4,$shift4,$time4, $paper4,$suject4,$mark4),
                  
                );
+               array_multisort(array_column($tableArray2, 0), SORT_ASC, $tableArray2);
 
             }
             else if($paper6 == "NA"){
@@ -930,6 +934,7 @@ class PdfHelper extends Dompdf
                   array($date5,$shift5,$time5,$paper5,$suject5, $mark5),
                  
                );
+               array_multisort(array_column($tableArray2, 0), SORT_ASC, $tableArray2);
 
             }
            
@@ -943,6 +948,7 @@ class PdfHelper extends Dompdf
                   array($date5,$shift5,$time5,$paper5,$suject5, $mark5),
                   array($date6,$shift6,$time6,$paper6,$suject6, $mark6)
                );
+               array_multisort(array_column($tableArray2, 0), SORT_ASC, $tableArray2);
 
             }
 
