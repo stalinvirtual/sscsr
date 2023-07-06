@@ -997,7 +997,6 @@ class PdfHelper extends Dompdf
 
          }
          echo "<table class='outer-table' style='width:100%'>{$theader}{$tcell}{$tfoot}</table>";
-         $path = 'C:\xampp\htdocs\projects\site\important_instructions\si2019_2.pdf';
          $output  .='<div class="page-break"></div>
          <div class="myDiv">
          <img src='.$last_line.' style="width:100%;height:130px">
