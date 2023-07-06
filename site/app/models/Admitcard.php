@@ -181,8 +181,12 @@ class Admitcard extends DB
         }
         else{
 
-            $str = "ted.dv_date::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
-        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code LIMIT 1)";
+           
+
+          
+        $str = "ted.dv_date::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+        AND current_date <= ted.dv_date::date ";
         $whereArray = array(
             'kd.dob'      => $newDate, 
             'kd.reg_no'   => $register_number,
@@ -273,10 +277,20 @@ class Admitcard extends DB
         $register_number = $this->cleanData($register_number);
         $tier_id = $this->cleanData($tier_id);
 
+        
+
+
+
         $str = "ted.pet_date::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
-        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)";
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+        AND current_date <= ted.pet_date::date ";
 
 
+
+
+
+        // echo $str;
+        // exit;
 
         if ($instructions_count->count == 0) {
 
@@ -698,8 +712,11 @@ class Admitcard extends DB
         $register_number = $this->cleanData($register_number);
         $tier_id = $this->cleanData($tier_id);
         
+       
+
         $str = "ted.skill_test_date::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
-        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)";
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+        AND current_date <= ted.skill_test_date::date ";
         $whereArray = array(
             'kd.dob'      => $newDate, 
             'kd.reg_no'   => $register_number,
@@ -778,9 +795,10 @@ class Admitcard extends DB
 
         $register_number = $this->cleanData($register_number);
         $tier_id = $this->cleanData($tier_id);
+        
         $str = "ted.date_of_dme::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
-        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)";
-
+        LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+        AND current_date <= ted.date_of_dme::date ";
 
         if ($instructions_count->count == 0) {
 

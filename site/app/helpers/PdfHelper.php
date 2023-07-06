@@ -165,7 +165,7 @@ class PdfHelper extends Dompdf
                case "67":
                   //repotime_admit2
                   $key67   = $value["col_description"];
-                  $value67 = valueAdded($value["col_value"]);
+                  $value67 = $value["col_value"];
                   break;
                case "68":
                //gateclose_admit1
@@ -175,7 +175,7 @@ class PdfHelper extends Dompdf
                case "69":
                   //gateclose_admit2
                   $key69   = $value["col_description"];
-                  $value69 = valueAdded($value["col_value"]);
+                  $value69 = $value["col_value"];
                   break;
                case "11":
                //gateclose
@@ -491,8 +491,22 @@ class PdfHelper extends Dompdf
             
       }
       else{
-         $reporting_time                = "Shift 1 : ".$value66."<br><div style='margin-left:113px'>Shift 2 : ".$value67."</div>";
-         $venue_detail_gate_close       = "Shift 1 : ".$value68."<br><div style='margin-left:213px'>Shift 2 : ".$value69."</div>";
+        
+        
+         if($value67 == trim("NA")){
+          
+             $reporting_time  = "Shift 1 : ".$value66."<br>";
+         }else{
+          
+         $reporting_time   = "Shift 1 : ".$value66."<br><div style='margin-left:113px'>Shift 2 : ".$value67."</div>";
+         }
+
+         if($value69 ==  trim("NA")){
+            $venue_detail_gate_close  = "Shift 1 : ".$value68."<br>";
+         }else{
+            $venue_detail_gate_close  = "Shift 1 : ".$value68."<br><div style='margin-left:213px'>Shift 2 : ".$value69."</div>";
+         }
+        
       }
          $headerImg = $GLOBALS['pdf_header_image_server_path'] ."header.png" ;
         
@@ -839,28 +853,28 @@ class PdfHelper extends Dompdf
             $date1   = date("d-m-Y", strtotime($value25));
             $shift1  = $value26;
             $time1   = $value27;
-            $mark1   = $value28;
+            $mark1   = (int)$value28;
             //Paper 2 
             $paper2  = trim($value29);
             $suject2 = $value30;
             $date2   = date("d-m-Y", strtotime($value31));
             $shift2  = $value32;
             $time2   = $value33;
-            $mark2   = $value34;
+            $mark2   = (int)$value34;
             //Paper3
             $paper3  = trim($value35);
             $suject3 = $value36;
             $date3   = date("d-m-Y", strtotime($value37));
             $shift3  = $value38;
             $time3   = $value39;
-            $mark3   = $value40;
+            $mark3   = (int)$value40;
             //Paper 4
             $paper4  = trim($value41);
             $suject4 = $value42;
             $date4   = date("d-m-Y", strtotime($value43));
             $shift4  = $value44;
             $time4   = $value45;
-            $mark4   = $value46;
+            $mark4   = (int)$value46;
 
 
 
@@ -870,14 +884,14 @@ class PdfHelper extends Dompdf
             $date5   = date("d-m-Y", strtotime($value50));
             $shift5  = $value51;
             $time5   = $value52;
-            $mark5   = $value53;
+            $mark5   = (int)$value53;
             //Paper 6
             $paper6  = trim($value54);
             $suject6 = $value55;
             $date6   = date("d-m-Y", strtotime($value56));
             $shift6  = $value57;
             $time6   = $value58;
-            $mark6   = $value59;
+            $mark6   = (int)$value59;
 
 
 

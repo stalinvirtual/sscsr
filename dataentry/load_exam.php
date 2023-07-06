@@ -47,6 +47,10 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 		<td>' . $i . '</td>
 		<td>' . $row->exam_name . '</td>
 		<td>' . $row->exam_short_name . '</td>
+        <td width="20px"><button type="button" name="delete" id="' . $row->exam_name . '" class="btn btn-danger btn-xs delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" name="edit" id="' . $row->exam_name . '"  class="btn btn-primary btn-xs edit" style="cursor:pointer"  data-toggle="modal"
+        data-target="#addStudent" data-toggle="tooltip" title="Edit" ><i class="fa fa-edit" aria-hidden="true"></i></button></td>
+  
 		</tr>';
             $i++;
 
@@ -151,4 +155,66 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 
 
     });  
+
+
+    //Delete Exam
+    $(document).on('click', '.delete', function () {
+
+var id = $(this).attr("id");
+swal.fire({
+    title: '<strong>Are you sure you want to delete this Exam?</strong>',
+    html: '<b>' + id + '</b>',
+    showCloseButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'No',
+    confirmButtonClass: 'some-class',
+    cancelButtonClass: 'some-other-class',
+    showCancelButton: true
+}).then(function (result) {
+    if (result.value) {
+        $.ajax({
+            url: "exam_delete_ajax.php",
+            type: "POST",
+            data: {
+                exam_name: id
+            },
+
+        }).done(function (data) {
+
+            swal.fire({
+                title: '<span style="color:green">Success</span>',
+                text: 'Exam Deleted Successfully',
+                type: 'success',
+                showCancelButton: false,
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
+
+            }).then(function (result) {
+                if (result.value) {
+                    window.location.reload();
+                }
+            })
+
+        });
+
+
+    } else {
+        console.log('button B pressed')
+    }
+})
+
+
+
+});
+
+
+
+//edit
+
+
+
+
+		
+	
+
 </script>
