@@ -516,6 +516,40 @@ class Admitcard extends DB
                      'ted.tier_id' => $tier_id,
                      'ted.roll_no' => $data_array['roll_no']
                 );
+                if($tier_id == "1"){
+                    $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                    LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+                    AND current_date <= ted.date1::date ";
+
+                    
+                }
+                else{
+
+                    $str = "COALESCE(
+                        LEAST(
+                          CASE WHEN date1 = 'NA' THEN NULL ELSE TO_DATE(date1, 'DD-MM-YYYY') END,
+                          CASE WHEN date2 = 'NA' THEN NULL ELSE TO_DATE(date2, 'DD-MM-YYYY') END,
+                          CASE WHEN date3 = 'NA' THEN NULL ELSE TO_DATE(date3, 'DD-MM-YYYY') END,
+                          CASE WHEN date4 = 'NA' THEN NULL ELSE TO_DATE(date4, 'DD-MM-YYYY') END,
+                          CASE WHEN date5 = 'NA' THEN NULL ELSE TO_DATE(date5, 'DD-MM-YYYY') END,
+                          CASE WHEN date6 = 'NA' THEN NULL ELSE TO_DATE(date6, 'DD-MM-YYYY') END
+                        ),
+                        '9999-12-31'::DATE
+                      )- (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                                     LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code  where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+                                     AND current_date <= COALESCE(
+                        LEAST(
+                          CASE WHEN date1 = 'NA' THEN NULL ELSE TO_DATE(date1, 'DD-MM-YYYY') END,
+                          CASE WHEN date2 = 'NA' THEN NULL ELSE TO_DATE(date2, 'DD-MM-YYYY') END,
+                          CASE WHEN date3 = 'NA' THEN NULL ELSE TO_DATE(date3, 'DD-MM-YYYY') END,
+                          CASE WHEN date4 = 'NA' THEN NULL ELSE TO_DATE(date4, 'DD-MM-YYYY') END,
+                          CASE WHEN date5 = 'NA' THEN NULL ELSE TO_DATE(date5, 'DD-MM-YYYY') END,
+                          CASE WHEN date6 = 'NA' THEN NULL ELSE TO_DATE(date6, 'DD-MM-YYYY') END
+                        ),
+                        '9999-12-31'::DATE
+                      )";
+
+                }
 
             }
             elseif($data_array['roll_no'] != "" && $data_array['post_preference'] !=""){
@@ -527,6 +561,43 @@ class Admitcard extends DB
                      'ted.roll_no' => $data_array['roll_no'],
                      'ted.post_preference' => $data_array['post_preference']
                 );
+
+
+
+                if($tier_id == "1"){
+                    $str = "ted.date1::date - (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                    LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+                    AND current_date <= ted.date1::date ";
+
+                    
+                }
+                else{
+
+                    $str = "COALESCE(
+                        LEAST(
+                          CASE WHEN date1 = 'NA' THEN NULL ELSE TO_DATE(date1, 'DD-MM-YYYY') END,
+                          CASE WHEN date2 = 'NA' THEN NULL ELSE TO_DATE(date2, 'DD-MM-YYYY') END,
+                          CASE WHEN date3 = 'NA' THEN NULL ELSE TO_DATE(date3, 'DD-MM-YYYY') END,
+                          CASE WHEN date4 = 'NA' THEN NULL ELSE TO_DATE(date4, 'DD-MM-YYYY') END,
+                          CASE WHEN date5 = 'NA' THEN NULL ELSE TO_DATE(date5, 'DD-MM-YYYY') END,
+                          CASE WHEN date6 = 'NA' THEN NULL ELSE TO_DATE(date6, 'DD-MM-YYYY') END
+                        ),
+                        '9999-12-31'::DATE
+                      )- (SELECT tm.no_of_days FROM sscsr_db_table_tier_master tm
+                                     LEFT JOIN $kyas_tbl_name k ON k.exam_code = tm.exam_code  where tm.table_name = '$table_name' and tm.tier_id = '$tier_id' LIMIT 1)  <= current_date
+                                     AND current_date <= COALESCE(
+                        LEAST(
+                          CASE WHEN date1 = 'NA' THEN NULL ELSE TO_DATE(date1, 'DD-MM-YYYY') END,
+                          CASE WHEN date2 = 'NA' THEN NULL ELSE TO_DATE(date2, 'DD-MM-YYYY') END,
+                          CASE WHEN date3 = 'NA' THEN NULL ELSE TO_DATE(date3, 'DD-MM-YYYY') END,
+                          CASE WHEN date4 = 'NA' THEN NULL ELSE TO_DATE(date4, 'DD-MM-YYYY') END,
+                          CASE WHEN date5 = 'NA' THEN NULL ELSE TO_DATE(date5, 'DD-MM-YYYY') END,
+                          CASE WHEN date6 = 'NA' THEN NULL ELSE TO_DATE(date6, 'DD-MM-YYYY') END
+                        ),
+                        '9999-12-31'::DATE
+                      )";
+
+                }
 
             }
             else{
@@ -664,11 +735,11 @@ class Admitcard extends DB
 
                 ->join("tier_master t", "ted.tier_id = cast(t.tier_id as char(255))", "JOIN")
                 ->where($whereArray)
-                ->wherecondition($str)
+               ->wherecondition($str)
                 ->get_one();
                
         }
-            //echo $this->last_query;
+           // echo $this->last_query;
             //  exit;
       
 
@@ -1119,6 +1190,7 @@ class Admitcard extends DB
             ->from($table_name)
             ->where(['roll_no' => $roll_no])
             ->get_list();
+          //  echo $this->last_query;
         $getcandidaterecord = $sql;
 
         return $getcandidaterecord;

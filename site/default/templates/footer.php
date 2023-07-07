@@ -310,13 +310,14 @@
 
 
 		$("#roll_number").keyup(function() {
+			
 
 			$('#post_preference_one').empty();
 
 
 
 
-
+			debugger;
 
 
 			var roll_no = $(this).val().trim();
