@@ -6,8 +6,14 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 	$exam_name = htmlspecialchars($exam_name);
 	$exam_short_name = strtolower(cleanData($_POST['exam_short_name']));
 	$exam_short_name = htmlspecialchars($exam_short_name);
+
 	try {
-		// $sql = "insert into exam_master (exam_name,exam_short_name,status) values ('$exam_name','$exam_short_name','0')";
+		 $query = "SELECT * FROM exam_master WHERE exam_name = :exam_name OR exam_short_name = :exam_short_name";
+		 $stmt = $pdo->prepare($query);
+		 $stmt->execute(['exam_name'=>$exam_name, 'exam_short_name'=>$exam_short_name]);
+		 $getresult = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	     $count = count($getresult);
+		 if($count==0){
 		$sql = "insert into exam_master (exam_name,exam_short_name,status) values (?,?,?)";
 		$stmt = $pdo->prepare($sql);
 		// $stmt->execute();
@@ -21,6 +27,20 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 				'title' => 'Success'
 			)
 		);
+		echo json_encode($message);
+	}
+	else{
+		$message = array(
+			'response' => array(
+				'status' => 'error',
+				'code' => '0',
+				// whatever you want
+				'message' => 'Exam already exists.',
+				'title' => 'Error'
+			)
+		);
+		echo json_encode($message);
+	}
 	} catch (Exception $e) {
 		$message = array(
 			'response' => array(
@@ -31,8 +51,9 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 				'title' => 'Error'
 			)
 		);
+		echo json_encode($message);
 	}
-	echo json_encode($message);
+
 } else {
 	header("Location: index.php");
 	exit();

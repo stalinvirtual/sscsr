@@ -24,6 +24,8 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 										</div>
 										<div class="form-body">
 											<form class="form-horizontal">
+											<input type="hidden" id="exam_id" name="exam_id"
+																 value="exam_id">
 												<div class="form-group">
 													<label for="examname" class="col-sm-4 control-label">Exam Name<font
 															style="color:red" ;>*</font> </label>
@@ -133,6 +135,7 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 						success: function (res) {
 
                         var data1 =JSON.parse(res);
+						$('#exam_id').val(data1[0].exam_name);
 			               $('#exam_name').val(data1[0].exam_name);
 							$('#exam_short_name').val(data1[0].exam_short_name);
 							$("#updateStudent").show();
@@ -152,6 +155,7 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 
 
 		$(document).on("click", "#updateStudent", function() { 
+		var exam_id =$('#exam_id').val();
         var exam_name = $('#exam_name').val();
         var exam_short_name = $('#exam_short_name').val();
 		$.ajax({
@@ -159,6 +163,7 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
 			type: "POST",
 			cache: false,
             data: {
+				exam_id:exam_id,
                 exam_name: exam_name,
                 exam_short_name: exam_short_name
             },
@@ -176,9 +181,23 @@ if (!isset($_SERVER['HTTP_REFERER']) || !isset($_SESSION['sess_user'])) {
                     window.location.reload();
                 }
             })
+			},
+			error: function(msg){
+				swal.fire({
+                title: '<span style="color:green">Success</span>',
+                text: 'Exam Already exist',
+                type: 'error',
+                showCancelButton: false,
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,
 
-
+            }).then(function (result) {
+                if (result.value) {
+                    window.location.reload();
+                }
+            })
 			}
+
 		});
 	}); 
 
